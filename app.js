@@ -60,7 +60,7 @@ const validateListing = (req, res, next) => {
 
   if (error) {
     let errMsg = error.details.map((el) => el.message).join(",");
-    console.log(errMsg);
+    // console.log(errMsg);
     // console.log(error.details);
     throw new ExpressError(400, errMsg);
   } else {
@@ -71,10 +71,10 @@ const validateListing = (req, res, next) => {
 // Create validation middleware for reviews
 
 const validateReview = (req, res, next) => {
-  let { error } = reviewSchema.validate(req.body);
+  const { error } = reviewSchema.validate(req.body);
+
   if (error) {
-    let errMsg = error.details.map((el) => el.message).join(",");
-    console.log(errMsg);
+    const errMsg = error.details.map((el) => el.message).join(",");
     throw new ExpressError(400, errMsg);
   } else {
     next();
@@ -100,7 +100,7 @@ app.get(
   "/listings/:id",
   wrapAsync(async (req, res) => {
     let { id } = req.params;
-    const listing = await Listing.findById(id);
+    const listing = await Listing.findById(id).populate("reviews");
     res.render("listings/show.ejs", { listing });
   })
 );
@@ -152,7 +152,8 @@ app.delete(
   })
 );
 
-// REVIEWS ROUTE
+// REVIEWS
+//Post route
 app.post(
   "/listings/:id/reviews",
   validateReview,
@@ -175,17 +176,26 @@ app.post(
   })
 );
 
+//Delete review route
+
+app.delete(
+  "/listings/:id/reviews/:reviewId",
+  wrapAsync(async (req, res) => {
+    let { id, reviewId } = req.params;
+    await Listing.findByIdAndUpdate(id, { $pull: { reviews: reviewId } });
+    await Review.findByIdAndDelete(reviewId);
+    res.redirect(`/listings/${id}`);
+  })
+);
+
 app.use((req, res, next) => {
   next(new ExpressError(404, "Page Not Found !"));
 });
 
 // middleware for err handling
 app.use((err, req, res, next) => {
-  let { statusCode = 500, message = "Something went wrong!" } = err;
-  res.render("error.ejs", { err });
-
-  // res.status(statusCode).send(message);
-  // res.send("Something went wrong");
+  const { statusCode = 400, message = "Something went wrong!" } = err;
+  res.status(statusCode).render("error.ejs", { err });
 });
 
 // app.get("/testListing" , async(req ,res) =>{

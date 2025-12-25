@@ -128,7 +128,7 @@ body {
 }
 
 .btn {
-  width: 100%;
+  /* width: 100%; */
 }
 
 /* SHOW PAGE  */
@@ -143,4 +143,8 @@ body {
 .show-card {
   padding-left: 0;
   padding-right: 0;
+}
+
+.star {
+  color: goldenrod;
 }
