@@ -20,9 +20,14 @@ const ExpressError = require("./utils/ExpressError.js");
 const session = require("express-session");
 const flash = require("connect-flash");
 
-//require listing routes from lisitng.js
-const listings = require("./routes/listing.js");
-const reviews = require("./routes/review.js");
+const passport = require("passport");
+const LocalStrategy = require("passport-local");
+const User = require("./models/user.js");
+
+//require routes
+const listingRouter = require("./routes/listing.js");
+const reviewRouter = require("./routes/review.js");
+const userRouter = require("./routes/user.js");
 
 // Connect to database/ create database
 let MONGO_URL = "mongodb://127.0.0.1:27017/stayNest";
@@ -66,9 +71,17 @@ app.use(session(sessionOptions));
 // use connect-flash (Always use it before routes)
 app.use(flash());
 
+//intialize passport
+app.use(passport.initialize());
+app.use(passport.session());
+passport.use(new LocalStrategy(User.authenticate()));
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
+
 app.use((req, res, next) => {
   res.locals.success = req.flash("success");
   res.locals.error = req.flash("error");
+  res.locals.currUser = req.user;
   next();
 });
 
@@ -78,9 +91,9 @@ app.get("/", (req, res) => {
 });
 
 // for listing routes we are only use this route
-app.use("/listings", listings);
-// for listing routes we are only use this route
-app.use("/listings/:id/reviews", reviews);
+app.use("/listings", listingRouter);
+app.use("/listings/:id/reviews", reviewRouter);
+app.use("/", userRouter);
 
 app.use((req, res, next) => {
   next(new ExpressError(404, "Page Not Found !"));

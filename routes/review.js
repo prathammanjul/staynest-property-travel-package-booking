@@ -8,6 +8,7 @@ const Review = require("../models/review.js");
 const wrapAsync = require("../utils/wrapAsync.js");
 //require ExpressCustom Error
 const ExpressError = require("../utils/ExpressError.js");
+const { isLoggedIn } = require("../middleware.js");
 
 // Create validation middleware for reviews
 const validateReview = (req, res, next) => {
@@ -26,6 +27,7 @@ const validateReview = (req, res, next) => {
 //Post route
 router.post(
   "/",
+  isLoggedIn,
   validateReview,
   wrapAsync(async (req, res) => {
     let { id } = req.params;
@@ -51,6 +53,7 @@ router.post(
 
 router.delete(
   "/:reviewId",
+  isLoggedIn,
   wrapAsync(async (req, res) => {
     let { id, reviewId } = req.params;
     await Listing.findByIdAndUpdate(id, { $pull: { reviews: reviewId } });
