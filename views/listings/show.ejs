@@ -13,11 +13,12 @@
     />
     <div class="card-body">
       <p class="card-text mt-3">
-        <%= listing.description %> <br />
-        &#8377;<%= listing.price ? listing.price.toLocaleString("en-IN") :"0"
-        %><br />
-        <%=listing.location%> <br />
-        <%=listing.country%>
+          <i><b>Owned by: </b> <%=listing.owner.username %></i>
+        <p><%= listing.description %> </p>
+        <p>&#8377;<%= listing.price ? listing.price.toLocaleString("en-IN") :"0"
+        %></p>
+        <p><%=listing.location%> </p>
+        <p><%=listing.country%></p>
       </p>
     </div>
   </div>
