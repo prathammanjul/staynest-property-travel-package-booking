@@ -5,6 +5,7 @@
     <h3><%= listing.title %></h3>
   </div>
 
+  
   <div class="card col-6 offset-3 show-card">
     <img
       src="<%=listing.image  %>"
@@ -54,17 +55,23 @@
     action="/listings/<%= listing.id %>/reviews"
     method="POST"
   >
-    <div class="mb-3">
-      <label for="rating" class="form-label"> Rating</label>
-      <input
-        type="range"
-        min="1"
-        max="5"
-        id="rating"
-        name="review[rating]"
-        class="form-range"
-      />
-    </div>
+  
+      <div class="mb-3 mt-3">
+        <label for="rating" class="form-label"> Rating</label>
+    <fieldset class="starability-grow ">
+  <input type="radio" id="no-rate" class="input-no-rate" name="review[rating]"value="0" checked aria-label="No rating." />
+  <input type="radio" id="first-rate1" name="review[rating]" value="1" />
+  <label for="first-rate1" title="Terrible">1 star</label>
+  <input type="radio" id="first-rate2" name="review[rating]" value="2" />
+  <label for="first-rate2" title="Not good">2 stars</label>
+  <input type="radio" id="first-rate3" name="review[rating]" value="3" />
+  <label for="first-rate3" title="Average">3 stars</label>
+  <input type="radio" id="first-rate4" name="review[rating]" value="4" />
+  <label for="first-rate4" title="Very good">4 stars</label>
+  <input type="radio" id="first-rate5" name="review[rating]" value="5" />
+  <label for="first-rate5" title="Amazing">5 stars</label>
+</fieldset>
+ </div>
 
     <div class="mb-3">
       <label for="comment" class="form-label"> Comments</label>
@@ -92,11 +99,8 @@
   <% for (let reviews of listing.reviews) { %>
   <div class="border p-2 mt-4 mb-4 rounded border-success">
     <h5>@<%=reviews.author.username %></h5>
-    <p>
-      <strong>Rating: </strong>
-      <%=reviews.rating %>
-      <span class="star fa fa-star"></span>
-    </p>
+    <p class="starability-result" data-rating= <%=reviews.rating %>>
+  </p> 
     <p>
       <strong>comment: </strong>
       <%= reviews.comment %>
