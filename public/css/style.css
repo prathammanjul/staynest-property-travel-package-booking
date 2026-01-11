@@ -4,7 +4,9 @@ body {
   flex-direction: column;
   min-height: 100vh;
 }
-
+main {
+  flex: 1;
+}
 .container {
   flex: 1;
 }
@@ -43,6 +45,9 @@ body {
 }
 
 /* footer */
+footer {
+  margin-top: 3rem;
+}
 .f-info-links a {
   text-decoration: none;
   color: #222222;
@@ -145,6 +150,31 @@ body {
   padding-right: 0;
 }
 
-.star {
-  color: goldenrod;
+.reviewContainer {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 1.5rem;
+}
+
+.reviewBox {
+  padding: 1rem;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  height: 90%;
+}
+
+.reviewBox p {
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  white-space: normal;
+}
+
+.reviewBox .comment {
+  max-height: 120px;
+  overflow-y: auto;
+}
+.starWrapper {
+  overflow: hidden;
+  width: fit-content;
 }
