@@ -352,15 +352,19 @@ const sampleListings = [
   },
 ];
 
-async function seedDB() {
-  await mongoose.connect("mongodb://127.0.0.1:27017/stayNest");
+// async function seedDB() {
+//   await mongoose.connect("mongodb://127.0.0.1:27017/stayNest");
 
-  await Listing.deleteMany({});
-  await Listing.insertMany(sampleListings);
+//   await Listing.deleteMany({});
+//   initData.data = initData.data.map((obj) => ({
+//     ...obj,
+//     owner: "6960ffb211c988d8b0fdff16",
+//   }));
+//   await Listing.insertMany(sampleListings);
 
-  console.log("Database seeded");
-  mongoose.connection.close();
-}
+//   console.log("Database seeded");
+//   mongoose.connection.close();
+// }
 
-seedDB();
+// seedDB();
 module.exports = { data: sampleListings };
