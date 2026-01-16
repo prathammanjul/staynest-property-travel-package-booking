@@ -6,8 +6,12 @@ const geocodingClient = mbxGeocoding({ accessToken: mapToken });
 
 // 1. index  ->  to show all data.
 module.exports.index = async (req, res) => {
-  const allListings = await Listing.find({}); //SHOW ALL DATA
-  res.render("listings/index.ejs", { allListings }); // PASSED allListing
+  const { category } = req.query;
+
+  const filter = category ? { categories: category } : {};
+  const allListings = await Listing.find(filter);
+
+  res.render("listings/index.ejs", { allListings });
 };
 
 // add new listings

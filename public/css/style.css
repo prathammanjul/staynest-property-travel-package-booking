@@ -1,15 +1,24 @@
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+
 body {
   font-family: "Plus Jakarta Sans", sans-serif !important;
   display: flex;
   flex-direction: column;
   min-height: 100vh;
 }
-/* main {
-  flex: 1;
-} */
-/* .container {
-  flex: 1;
-} */
+main {
+  flex: 1 0 auto;
+}
+.container {
+  /* flex: auto; */
+  display: flex;
+  flex-direction: column;
+}
 
 .navbar-brand {
   font-weight: 600;
@@ -45,8 +54,15 @@ body {
 }
 
 /* footer */
+.container {
+  margin-bottom: 0 !important;
+  padding-bottom: 0 !important;
+}
 footer {
-  margin-top: 3rem;
+  margin-top: auto;
+  flex-shrink: 0;
+  margin: 0; /* Remove any margin */
+  padding: 0;
 }
 .f-info-links a {
   text-decoration: none;
@@ -60,6 +76,8 @@ footer {
 .f-info {
   height: 8rem;
   display: flex;
+  margin: 0; /* Add this */
+  padding: 0;
 
   background-color: #ebebeb;
   justify-content: center;
@@ -74,6 +92,7 @@ footer {
   gap: 1rem;
   align-items: center;
   justify-content: center;
+  margin: 0;
 }
 
 .f-info-socials i {
