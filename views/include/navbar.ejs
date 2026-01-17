@@ -42,12 +42,17 @@
       </div>
 
       <div class="navbar-nav ms-auto">
-        <form class="d-flex" role="search">
+        <form class="d-flex" role="search" method="get">
+          <% if(currentCategory){ %>
+          <input type="hidden" name="category" value="<%= currentCategory %>" />
+          <% } %>
+
           <input
             class="form-control me-2 search-inp"
+            name="search"
             type="search"
+            value="<%=searchText%>"
             placeholder="Search destinations"
-            aria-label="Search"
           />
           <button class="btn search-btn" type="submit">
             <i class="fa-solid fa-magnifying-glass"></i>Search
