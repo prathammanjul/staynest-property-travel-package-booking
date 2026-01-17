@@ -1,0 +1,410 @@
+.navbar-brand {
+  margin-left: 3rem;
+}
+.btn-login {
+  cursor: pointer;
+  margin-right: 3rem !important;
+}
+
+.top {
+  display: grid;
+  justify-items: center;
+}
+
+.top h4 {
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.top p {
+  color: #566e8f;
+  font-size: 14px;
+}
+
+.containers {
+  display: flex;
+  height: 100vh;
+}
+
+/* LEFT SECTION */
+.left-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50%;
+}
+
+.ls-card {
+  min-width: 448px;
+  max-width: 448px;
+  width: 448px;
+  padding: 32px;
+  background: #fff;
+  box-sizing: border-box;
+}
+.card {
+  transition: 0.3s ease-out;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+
+  position: relative;
+  width: 300px;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+/* RIGHT SECTION */
+.right-container {
+  background: linear-gradient(135deg, #b45c2b, #206f80);
+  background-size: cover;
+  background-repeat: no-repeat;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 50%;
+}
+
+.content {
+  text-align: center;
+  color: #fff;
+}
+
+.heading {
+  font-size: 36px;
+  font-weight: 700;
+}
+
+.sub-head {
+  font-size: 20px;
+  font-weight: 400;
+  margin-top: 0.5rem;
+}
+
+label {
+  display: block;
+  font-size: 14px;
+  color: #344256;
+  font-weight: 600;
+  margin-top: 1rem;
+}
+
+.input-style {
+  width: 100%;
+  padding: 8px 12px;
+  margin-top: 4px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 14px;
+}
+
+.forget-pass {
+  font-size: 14px;
+  color: #0da2e7;
+  font-weight: 600;
+  text-decoration: none;
+  margin-top: 0.5rem;
+}
+
+.submit {
+  width: 100%;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  cursor: pointer;
+}
+
+.create-acc {
+  font-size: 16px;
+  color: #566e8f;
+  text-align: center;
+}
+
+.sign-up {
+  margin: 0;
+  font-size: 16px;
+}
+
+.sign-up:hover {
+  text-decoration: underline;
+}
+
+.checkbox-container {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 16px;
+  color: #344256;
+}
+
+.styled-checkbox {
+  -webkit-appearance: none;
+  width: 16px;
+  height: 16px;
+  border: 1px solid #0da2e7;
+  border-radius: 50%;
+  cursor: pointer;
+  display: grid;
+  place-content: center;
+  transition: all 0.2s ease-in-out;
+  margin-top: 1rem;
+}
+
+.styled-checkbox:checked {
+  background-color: #0da2e7;
+  border-color: #0da2e7;
+}
+
+.styled-checkbox:checked::before {
+  content: "✓";
+  font-size: 12px;
+  color: white;
+}
+
+.checkbox-container a {
+  color: #0da2e7;
+  font-weight: 500;
+  text-decoration: none;
+}
+
+.checkbox-container a:hover {
+  text-decoration: underline;
+}
+
+.name-input {
+  display: flex;
+  gap: 1rem;
+}
+
+.name-input .input-group {
+  flex: 1;
+  min-width: 0;
+}
+
+.name-sec {
+  display: flex;
+  gap: 7.9rem;
+}
+
+/* Additional validation styles */
+.input-style.error {
+  border-color: #dc3545;
+}
+
+.styled-checkbox.error {
+  border-color: #dc3545;
+}
+
+.error-message {
+  color: #dc3545;
+  font-size: 12px;
+  margin-top: 4px;
+  font-weight: 500;
+  word-wrap: break-word;
+  word-break: break-word;
+  white-space: normal;
+  line-height: 1.4;
+  max-width: 100%;
+}
+
+.form-errors {
+  margin-top: 1rem;
+  padding: 12px;
+  background-color: #f8d7da;
+  border: 1px solid #f5c6cb;
+  border-radius: 6px;
+}
+
+.form-errors .error-message {
+  color: #721c24;
+  font-size: 14px;
+  margin: 0;
+  margin-bottom: 8px;
+}
+
+.form-errors .error-message:last-child {
+  margin-bottom: 0;
+}
+
+/* Success Modal */
+.success-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+.success-modal {
+  background: white;
+  padding: 2rem;
+  border-radius: 12px;
+  text-align: center;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  max-width: 400px;
+  width: 90%;
+}
+
+.success-icon {
+  font-size: 4rem;
+  color: #28a745;
+  margin-bottom: 1rem;
+}
+
+.success-modal h3 {
+  color: #344256;
+  margin-bottom: 1rem;
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.success-modal p {
+  color: #566e8f;
+  margin-bottom: 2rem;
+  font-size: 16px;
+}
+
+.loading-dots {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+}
+
+.loading-dots span {
+  width: 8px;
+  height: 8px;
+  background-color: #0da2e7;
+  border-radius: 50%;
+  animation: loading 1.4s ease-in-out infinite both;
+}
+
+.loading-dots span:nth-child(1) {
+  animation-delay: -0.32s;
+}
+
+.loading-dots span:nth-child(2) {
+  animation-delay: -0.16s;
+}
+
+@keyframes loading {
+  0%,
+  80%,
+  100% {
+    transform: scale(0);
+  }
+  40% {
+    transform: scale(1);
+  }
+}
+
+/* Alert/Error Modal Styles */
+.alert-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 10000;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+.alert-box {
+  background: white;
+  padding: 2rem;
+  border-radius: 12px;
+  text-align: center;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+  max-width: 450px;
+  width: 90%;
+  animation: slideIn 0.3s ease-out;
+}
+
+.alert-icon {
+  font-size: 4rem;
+  color: #dc3545;
+  margin-bottom: 1rem;
+  animation: shake 0.5s ease-in-out;
+}
+
+.alert-box h4 {
+  color: #344256;
+  margin-bottom: 1rem;
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.alert-box p {
+  color: #566e8f;
+  margin-bottom: 1.5rem;
+  font-size: 16px;
+  line-height: 1.5;
+}
+
+.alert-btn {
+  background: linear-gradient(135deg, #dc3545, #c82333);
+  color: white;
+  border: none;
+  padding: 12px 32px;
+  border-radius: 6px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(220, 53, 69, 0.3);
+}
+
+.alert-btn:hover {
+  background: linear-gradient(135deg, #c82333, #bd2130);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(220, 53, 69, 0.4);
+}
+
+.alert-btn:active {
+  transform: translateY(0);
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slideIn {
+  from {
+    transform: translateY(-50px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes shake {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  10%,
+  30%,
+  50%,
+  70%,
+  90% {
+    transform: translateX(-5px);
+  }
+  20%,
+  40%,
+  60%,
+  80% {
+    transform: translateX(5px);
+  }
+}
