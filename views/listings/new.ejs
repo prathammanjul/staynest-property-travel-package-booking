@@ -51,6 +51,43 @@
         />
       </div>
 
+      <!-- dropdown -->
+      <div class="dropdown mt-4 mb-3">
+        <p>Select your category</p>
+
+        <!-- hidden input that ACTUALLY sends data -->
+        <input type="hidden" name="listing[categories]" id="categoryInput" />
+
+        <button
+          class="btn border dropdown-toggle w-100"
+          type="button"
+          data-bs-toggle="dropdown"
+          id="categoryBtn"
+        >
+          Select category
+        </button>
+
+        <ul class="dropdown-menu w-100">
+          <li><button type="button" class="dropdown-item">Trending</button></li>
+          <li><button type="button" class="dropdown-item">Rooms</button></li>
+          <li>
+            <button type="button" class="dropdown-item">Mountains</button>
+          </li>
+          <li>
+            <button type="button" class="dropdown-item">Iconic cities</button>
+          </li>
+          <li><button type="button" class="dropdown-item">Castles</button></li>
+          <li>
+            <button type="button" class="dropdown-item">Amazing pools</button>
+          </li>
+          <li><button type="button" class="dropdown-item">Camping</button></li>
+          <li><button type="button" class="dropdown-item">Farms</button></li>
+          <li><button type="button" class="dropdown-item">Arctic</button></li>
+          <li><button type="button" class="dropdown-item">Domes</button></li>
+          <li><button type="button" class="dropdown-item">Boats</button></li>
+        </ul>
+      </div>
+
       <div class="row">
         <div class="mb-3 col-md-6">
           <label for="price" class="form-label">Price</label>

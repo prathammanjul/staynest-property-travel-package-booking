@@ -1,8 +1,7 @@
 html,
 body {
-  height: 100%;
-  margin: 0;
-  padding: 0;
+  max-width: 100%;
+  overflow-x: hidden;
 }
 
 body {
@@ -14,10 +13,14 @@ body {
 main {
   flex: 1 0 auto;
 }
-.container {
-  /* flex: auto; */
+.containers {
   display: flex;
-  flex-direction: column;
+  height: 100vh;
+  width: 100%; /* Add this */
+  max-width: 100vw; /* Add this */
+  overflow-x: hidden; /* Add this */
+  margin: 0; /* Add this */
+  padding: 0; /* Add this */
 }
 
 .navbar-brand {
@@ -138,11 +141,6 @@ footer {
   cursor: pointer;
 }
 
-/* .card-img-overlay:hover {
-  opacity: 0.1;
-  background-color: white;
-} */
-
 /* // Create listing form  */
 
 .new-ls-heading {
@@ -204,4 +202,15 @@ footer {
   height: 400px;
   width: 100vh;
   border-radius: 1rem;
+}
+
+.btn-signup {
+  background: linear-gradient(130deg, #02aedd, #01cece) !important;
+  color: #fff !important;
+  font-weight: 600;
+  border-radius: 10px !important;
+  padding: 8px 20px !important;
+  border: none !important;
+  text-decoration: none;
+  transition: opacity 0.3s ease;
 }

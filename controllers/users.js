@@ -1,3 +1,4 @@
+const { isLoggedIn } = require("../middleware.js");
 const User = require("../models/user.js");
 
 // signup page
