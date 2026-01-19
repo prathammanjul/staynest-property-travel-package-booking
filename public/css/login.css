@@ -1,6 +1,6 @@
 .btn-login {
   cursor: pointer;
-  margin-right: 3rem !important;
+  /* margin-right: 3rem !important; */
 }
 .card {
   transition: 0.3s ease-out;

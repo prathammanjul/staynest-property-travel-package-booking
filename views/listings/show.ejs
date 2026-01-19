@@ -1,57 +1,95 @@
 <% layout("layouts/boilerplate") %>
+<link href="/css/stayDetails.css" rel="stylesheet" />
 <script>
   const mapToken = "<%= process.env.MAP_TOKEN %>";
   const coordinates = <%- JSON.stringify(listing.geometry.coordinates) %>;
 </script>
 
-<div class="row mt-3">
-  <div class="col-8 offset-3">
-    <h3><%= listing.title %></h3>
-  </div>
+
+<div class="listing-head mb-5">
+
+    <h3 class="mt-5 "><%= listing.title %></h3>
+
 
   
-  <div class="card col-6 offset-3 show-card">
+  <div class=" show-card">
     <img
       src="<%=listing.image.url  %>"
-      class="card-img-top show-img"
+      class="card-img-top show-img mt-3"
       alt="listing-image"
     />
-    <div class="card-body ">
-      <p class="card-text mt-3">
-          <i><b>Owned by: </b> <%=listing.owner.username %></i>
-        <p><%= listing.description %> </p>
-        <p>&#8377;<%= listing.price ? listing.price.toLocaleString("en-IN") :"0"
-        %></p>
-        <p><%=listing.location%> </p>
-        <p><%=listing.country%></p>
-      </p>
-    </div>
   </div>
-</div>
-<!-- edit link  -->
- <% if(currUser && currUser._id.equals(listing.owner._id)) { %>
-<div class="btns mb-5">
-  <a href="/listings/<%=listing._id%>/edit" class="btn btn-dark col-1 offset-3"
-    >edit</a
-  >
-
-  <!-- Delete button  -->
-
-  <form method="post" action="/listings/<%=listing.id %>?_method=Delete">
-    <button class="btn btn-dark offset-4">Delete</button>
-  </form>
-</div>
-
-<% } %>
 
 
 
 
-<!-- REVIEW SECTION  -->
-<div class="col-8 offset-3 mb-5">
-  <hr />
-  <% if (currUser && !listing.owner.equals(currUser._id)) { %>
-  <h4 class="mb-4 mt-4">Leave a Reviews</h4>
+  <div class="main-content">
+    <div class="left-side">
+      <p>
+        <h4 class="show-heading"> Stay in <%= `${listing.location + "," + listing.country}` %> </h4>
+
+        <h5 class="mt-3 mb-4 info-text">
+          Nested by: <%= listing.owner.username %>
+        </h5>
+
+        <hr>
+
+        <h4 class="show-heading mt-4">About this stay</h4>
+        <p class="info-text mt-3 stay"><%= listing.description %></p>
+      </p>
+
+
+    
+    <!-- edit & delete INSIDE left-side -->
+    <% if (currUser && currUser._id.equals(listing.owner._id)) { %>
+      <div class="btns  mb-5 mt-4 ">
+        <a
+          href="/listings/<%= listing._id %>/edit"
+          class="btn btn-login me-5 border"
+        >
+          Edit this listing
+        </a>
+
+        <form method="post" action="/listings/<%= listing.id %>?_method=Delete">
+          <button class="btn btn-login border">Delete this listing</button>
+        </form>
+      </div>
+      <% } %>
+
+
+  </div>
+
+
+
+<!-- Right Sidebar -->
+    <aside class="right-sidebar">
+      <!-- Booking Card -->
+      <div class="booking-card">
+        <h3>Book Your Nest</h3>
+        <div class="price-section">
+          <div class="price-value">&#8377; <%= listing.price ? listing.price.toLocaleString("en-IN") :
+            "0" %>/ night</div>
+        </div>
+        <button class="book-now-btn btn-signup mb-4">
+          Book Now
+        </button>
+        <button
+          class="wishlist-btn contact-expert-btn"
+        >
+          Add to Wishlist
+        </button>
+      </div>
+    </aside>
+  </div>
+  </div>
+  
+  
+  <!-- REVIEW SECTION  -->
+  <div class="review-content show-heading">
+    <!-- <hr /> -->
+    <% if (currUser && !listing.owner.equals(currUser._id)) { %>
+      <hr>
+      <h4 class="mb-4 mt-4">Leave a Reviews</h4>
 
   <form
     novalidate
@@ -93,22 +131,22 @@
       <div class="invalid-feedback">Please write the review!</div>
     </div>
 
-    <button class="btn btn-outline-dark mt-3">Submit</button>
+    <button class="btn btn-login mt-3">Submit</button>
   </form>
 
 
   <% } %>
 
   <% if(listing.reviews.length > 0){ %>
-  <h4>All Reviews</h4>
-  <div class="reviewContainer ">
+    <hr>
+  <h4 class="show-heading">All Reviews</h4>
+  <div class="reviewContainer mb-5">
   <% for (let reviews of listing.reviews) { %>
-  <div class="border p-2 mt-4 mb-2 rounded border reviewBox">
-    <h5>@<%=reviews.author.username %></h5>
+  <div class="border p-4 mt-4 mb-2  reviewBox">
+    <h5 class="info-text">@<%=reviews.author.username %></h5>
     <p class="starability-result staticCardStar " data-rating= <%=reviews.rating %>>
   </p> 
-    <p class="comment">
-      <strong>comment: </strong>
+    <p class="comment info-text">
       <%= reviews.comment %>
     </p>
 
@@ -120,7 +158,7 @@
       class="mb-1"
     >
       <% if (currUser && !listing.owner.equals(currUser._id)) { %>
-      <button class="btn btn-sm btn-dark">Delete</button>
+      <button class="btn btn-sm btn-login ">Delete</button>
         <% } %>
     </form>
   </div>
@@ -128,18 +166,25 @@
 </div>
 
 <% } %>
-</div>
-
+<hr>
 <!-- For Map  -->
-<div class="col-8 offset-3">
+<div class= "mt-5">
 
   <h3>Where you’ll be</h3>
   <p class="mt-3 mb-4"><%= listing.location %>,<%= listing.country %></p>
   <div id="map"></div>
 </div>
+</div>
+</div>
+
 
 <!-- We will be using Map script file in last  -->
  <script src="/js/map.js">
  </script>
+
+
+
+
+
 
 

@@ -1,24 +1,4 @@
-<style>
-  .search-btn {
-    background: linear-gradient(135deg, #4dcdc6, #61c0cc);
-    color: aliceblue;
-    border-radius: 25px;
-    padding: 0 1rem 0 1rem;
-  }
-  /* .btn-search:hover {
-    color: black;
-  } */
-  .search-btn i {
-    display: inline;
-    margin-right: 0.5rem;
-  }
-  .search-inp {
-    border-radius: 25px;
-    padding: 0.5rem 3rem 0.5rem 3rem;
-    font-size: 0.98rem;
-  }
-</style>
-
+<link href="/css/navbar.css" rel="stylesheet" />
 <nav class="navbar navbar-expand-md bg-body-light border-bottom sticky-top">
   <div class="container-fluid">
     <!-- <a class="navbar-brand" href="/"><i class="fa-regular fa-compass"></i></a> -->
@@ -63,11 +43,27 @@
       <div class="navbar-nav ms-auto">
         <a class="nav-link" href="/listings/new">Host Your Place</a>
         <% if(!currUser){ %>
-        <a class="nav-link" href="/signup"><b> Sign up</b></a>
-        <a class="nav-link" href="/login"><b> Login</b></a>
+        <a class="btn-login me-2" href="/login">Login</a>
+        <a class="btn btn-signup" href="/signup">Sign up</a>
 
         <% } else { %>
-        <a class="nav-link" href="/logout"> <b>log out</b></a>
+        <div class="dropdown">
+          <button
+            class="btn dropdown-toggle w-5"
+            type="button"
+            id="dropdownMenuButton1"
+            data-bs-toggle="dropdown"
+          >
+            <%=currUser.username %>
+          </button>
+          <ul class="dropdown-menu">
+            <li>
+              <a class="dropdown-item" href="/logout">Logout</a>
+            </li>
+          </ul>
+        </div>
+
+        <!-- <a class="nav-link" href="/logout"> <%=currUser.username %></a> -->
         <% }%>
       </div>
     </div>

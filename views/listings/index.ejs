@@ -167,8 +167,8 @@
         <div class="card-body">
           <p class="card-text">
             <b><%=listing.title %> </b><br />
-            &#8377; <%= listing.price ? listing.price.toLocaleString("en-IN") :
-            "0" %>/ night
+            <span>&#8377; <%= listing.price ? listing.price.toLocaleString("en-IN") :
+            "0" %>/ night</span>
             <i class="tax-info">
               &nbsp;&nbsp; <%= ((listing.price * 118) / 100 )%>/ night</i
             >

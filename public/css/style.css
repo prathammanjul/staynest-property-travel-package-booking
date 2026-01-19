@@ -62,9 +62,9 @@ main {
   padding-bottom: 0 !important;
 }
 footer {
-  margin-top: auto;
+  /* margin-top: auto; */
   flex-shrink: 0;
-  margin: 0; /* Remove any margin */
+  margin-top: 5rem;
   padding: 0;
 }
 .f-info-links a {
@@ -120,8 +120,12 @@ footer {
 .card-body {
   padding: 0 !important;
 }
-.card-text p {
-  font-weight: 400 !important;
+
+.card-text b {
+  color: #344256;
+}
+.card-text span {
+  color: #566e84;
 }
 
 .listing-link {
@@ -142,7 +146,7 @@ footer {
 
 /* SHOW PAGE  */
 .show-img {
-  height: 30vh;
+  height: 50vh;
 }
 
 .btns {

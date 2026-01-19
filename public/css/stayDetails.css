@@ -1,0 +1,134 @@
+.main-content {
+  display: flex;
+  justify-content: space-between;
+
+  margin-top: 4rem;
+  gap: 5rem;
+}
+.left-side {
+  display: grid;
+  display: inline-block;
+  width: 60%;
+}
+
+.right-sidebar {
+  flex: 1;
+  max-width: 400px;
+
+  position: sticky;
+
+  height: auto;
+}
+
+.booking-card {
+  background: white;
+  border: 1px solid #e0e0e0;
+  border-radius: 12px;
+  padding: 24px;
+  margin-bottom: 24px;
+  height: 290px;
+  width: 350px;
+}
+
+.booking-card h3 {
+  font-size: 24px;
+  font-weight: bold;
+  color: #344256;
+
+  /* margin-bottom: 16px; */
+}
+
+.price-section {
+  margin-bottom: 20px;
+}
+
+.price-value {
+  font-size: 24px;
+  font-weight: bold;
+  color: #0da2e7;
+  margin-bottom: 4px;
+}
+
+.book-now-btn {
+  width: 100%;
+  color: white;
+  border: none;
+
+  font-weight: 600;
+  cursor: pointer;
+}
+.book-now-btn:hover {
+  background-color: #0891d4;
+}
+
+.wishlist-btn {
+  width: 100%;
+  background-color: transparent;
+  color: #344256;
+  border: 1.5px solid #e0e0e0;
+  padding: 9px;
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.wishlist-btn:hover {
+  background-color: #f97415;
+  border-color: #f97415;
+  color: white;
+}
+
+.booking-card h4 {
+  font-size: 20px;
+  font-weight: bold;
+  color: #344256;
+  margin-bottom: 16px;
+}
+
+/* .show-heading {
+  font-size: 20px;
+  font-weight: bold;
+  color: #344256;
+} */
+.show-heading {
+  font-weight: 600;
+  color: #1f2933;
+}
+
+/* .info-text { */
+/* color: #344256; */
+/* color: #f97415; */
+/* } */
+
+.info-text {
+  color: #4b5563;
+  line-height: 1.7;
+}
+
+.stay-title {
+  font-size: 1.6rem;
+  font-weight: 600;
+  color: #1f2933;
+  position: relative;
+  background-color: #0891d4 !important;
+}
+/* 
+.btns {
+  display: flex !important;
+  align-items: center !important;
+} */
+
+.left-side {
+  background-color: rgba(8, 145, 212, 0.05);
+  padding: 2rem;
+  border-radius: 12px;
+}
+
+.review-content {
+  padding: 0 7rem 0rem 7rem;
+}
+
+.listing-head {
+  padding: 0rem 7rem 0rem 7rem;
+}
