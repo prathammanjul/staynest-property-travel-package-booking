@@ -9,7 +9,6 @@ const app = express();
 
 // require mongoose
 const mongoose = require("mongoose");
-// require listing schema from models
 
 const path = require("path");
 //rewuire methodOverride for delete

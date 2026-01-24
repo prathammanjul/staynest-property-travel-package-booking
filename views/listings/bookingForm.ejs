@@ -75,6 +75,8 @@
         action="/listings/<%=listing._id%>/bookings"
         novalidate
         class="needs-validation"
+
+
       >
         <!-- Personal Information -->
         <div class="form-section">
@@ -95,6 +97,7 @@
                 placeholder="Enter your first name"
                 class="form-control"
                 required
+
               />
 
               <div class="valid-feedback">Looks Good!</div>
@@ -112,6 +115,7 @@
                 placeholder="Enter your last name"
                 class="form-control"
                 required
+
               />
               <div class="valid-feedback">Looks Good!</div>
               <div class="invalid-feedback">Please enter your last name</div>
@@ -128,6 +132,7 @@
                 class="form-control"
                 placeholder="Enter your email"
                 required
+
               />
               <div class="valid-feedback">Looks Good!</div>
               <div class="invalid-feedback">Please enter valid email</div>
@@ -144,6 +149,7 @@
                 placeholder="Enter your phone number"
                 class="form-control"
                 required
+
               />
               <div class="valid-feedback">Looks Good!</div>
               <div class="invalid-feedback">Please enter valid phone no</div>
@@ -169,6 +175,7 @@
                 class="form-control"
                 name="booking[checkIn]"
                 required
+
               />
               <div class="valid-feedback">Looks Good!</div>
               <div class="invalid-feedback">Select check in date</div>
@@ -185,15 +192,16 @@
                 class="form-control"
                 name="booking[checkOut]"
                 required
+
               />
               <div class="valid-feedback">Looks Good!</div>
               <div class="invalid-feedback">Select check-out date</div>
             </div>
           </div>
 
-          <div class="form-group">
+          <div class="form-group" >
             <label for="guests">Number of Guests</label>
-            <select id="guests" class="guests-dropdown" name="booking[guests]">
+            <select id="guests" class="guests-dropdown" name="booking[guests] " >
               <option value="1">1 Guest</option>
               <option value="2">2 Guests</option>
               <option value="3">3 Guests</option>
@@ -270,5 +278,10 @@
     </div>
   </div>
 </div>
-<script src="/js/bookingForm.js"></script>
-manorma devi
+
+
+
+<script src="/js/bookingForm.js"> 
+</script>
+ 
+<script> const bookedRanges = <%- JSON.stringify(existingBooking) %>;</script>

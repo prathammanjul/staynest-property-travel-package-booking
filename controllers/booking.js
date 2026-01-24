@@ -1,43 +1,34 @@
 const Booking = require("../models/booking.js");
 const Listing = require("../models/listing.js");
 
-//booking form
+//Render booking form (GET)
 module.exports.renderBookingForm = async (req, res) => {
   let { id } = req.params;
   const listing = await Listing.findById(id);
 
-  res.render("listings/bookingForm.ejs", { listing });
+  //send checkin checkout data
+  const existingBooking = await Booking.find(
+    { listing: id },
+    { checkIn: 1, checkOut: 1 },
+  );
+
+  res.render("listings/bookingForm.ejs", { listing, existingBooking });
 };
 
-//Create booking
+//Create booking (POST)
 module.exports.createBooking = async (req, res) => {
   const { id } = req.params;
   const { checkIn, checkOut } = req.body.booking;
 
-  //so that we can get the location , country to insert in the database
+  //Fetch Listing data to get location , country to insert in Booking database
   const listing = await Listing.findById(id);
 
   // Convert string dates → Date objects
   const checkInDate = new Date(checkIn);
   const checkOutDate = new Date(checkOut);
   const today = new Date();
+  // comparison becomes date-only, not time-based.
   today.setHours(0, 0, 0, 0); // normalize
-
-  //  Validation checks
-  if (!checkIn || !checkOut) {
-    req.flash("error", "Please select both check-in and check-out dates.");
-    return res.redirect(`/listings/${id}/booking-page`);
-  }
-
-  if (checkInDate < today) {
-    req.flash("error", "Check-in date cannot be in the past.");
-    return res.redirect(`/listings/${id}/booking-page`);
-  }
-
-  if (checkOutDate <= checkInDate) {
-    req.flash("error", "Check-out date must be after check-in date.");
-    return res.redirect(`/listings/${id}/booking-page`);
-  }
 
   //  DOUBLE BOOKING CHECK( Check if there is any existing booking on same date)
   const conflictingBooking = await Booking.findOne({
@@ -45,6 +36,7 @@ module.exports.createBooking = async (req, res) => {
     checkIn: { $lt: checkOutDate },
     checkOut: { $gt: checkInDate },
   });
+  //Conflict found - NO Booking
   if (conflictingBooking) {
     req.flash(
       "error",
@@ -52,7 +44,7 @@ module.exports.createBooking = async (req, res) => {
     );
     return res.redirect(`/listings/${id}/booking-page`);
   }
-  // 3️ Create booking (only after validation passes)
+  // 3️ Create booking Object (only after All validation passes)
   const newBooking = new Booking({
     ...req.body.booking,
     location: listing.location,
@@ -61,7 +53,7 @@ module.exports.createBooking = async (req, res) => {
     listing: id,
   });
 
-  if (existingBooking) await newBooking.save();
+  await newBooking.save();
 
   req.flash("success", "Booking confirmed!");
   res.redirect(`/listings/${id}`);

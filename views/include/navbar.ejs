@@ -20,6 +20,9 @@
       <div class="navbar-nav">
         <a class="nav-link" href="/listings">Explore</a>
       </div>
+      <div class="navbar-nav">
+        <a class="nav-link" href="/packages">Packages</a>
+      </div>
 
       <div class="navbar-nav ms-auto">
         <form class="d-flex" role="search" method="get">
@@ -41,7 +44,28 @@
       </div>
 
       <div class="navbar-nav ms-auto">
-        <a class="nav-link" href="/listings/new">Host Your Place</a>
+
+        <!-- <a class="nav-link" href="/listings/new">Host Your Place</a>
+          -->
+           <div class="dropdown">
+          <button
+            class="btn dropdown-toggle w-5"
+            type="button"
+            id="dropdownMenuButton1"
+            data-bs-toggle="dropdown"
+          >
+          Host Your Place
+          </button>
+          <ul class="dropdown-menu">
+            <li>
+              <a class="dropdown-item" href="/listings/new">Host your nest</a>
+            </li>
+            <li>
+              <a class="dropdown-item" href="/listings/new-package">Host your Package</a>
+            </li>
+          </ul>
+        </div>
+
         <% if(!currUser){ %>
         <a class="btn-login me-2" href="/login">Login</a>
         <a class="btn btn-signup" href="/signup">Sign up</a>

@@ -1,5 +1,6 @@
-let guestSelect = document.getElementById("guests");
+// || 1. Guest Count Selection & Summary Update ||
 
+let guestSelect = document.getElementById("guests");
 guestSelect.addEventListener("change", function () {
   let guestCount = Number(this.value);
   // console.log(guestCount);
@@ -15,6 +16,7 @@ guestSelect.addEventListener("change", function () {
   // console.log(intBasePrice);
 });
 
+// 2. Disable Past Dates
 let today = new Date().toISOString().split("T")[0];
 
 let selectCheckIn = document.getElementById("checkIn");
@@ -23,6 +25,7 @@ let selectCheckOut = document.getElementById("checkOut");
 checkIn.min = today;
 checkOut.min = today;
 
+// 3. Calculate Total Stay Duration (Check-Out Change)
 selectCheckOut.addEventListener("change", function () {
   let checkInValue = selectCheckIn.value;
   let checkOutValue = this.value;
@@ -38,6 +41,7 @@ selectCheckOut.addEventListener("change", function () {
   totalDuration[0].innerText = totalDays;
 });
 
+// 4. Applied Check-Out > Check-In Rule
 selectCheckIn.addEventListener("change", function () {
   let checkInDate = new Date(this.value);
 
@@ -46,13 +50,38 @@ selectCheckIn.addEventListener("change", function () {
 
   let minCheckout = checkInDate.toISOString().split("T")[0];
   selectCheckOut.min = minCheckout;
-
-  // reset checkout if user changes check-in again
-  // selectCheckOut.value = "";
 });
 
-//Back Icon
-
+// 5. Back Button
 document.getElementById("backBtn").addEventListener("click", function () {
   window.history.back();
+});
+
+// 6. Booking Overlap Detection Logic (UI Side)
+function isDateBooked(dateStr) {
+  const date = new Date(dateStr);
+
+  for (booking of bookedRanges) {
+    let start = new Date(booking.checkIn);
+    let end = new Date(booking.checkOut);
+
+    if (date >= start && date < end) {
+      return true; //date already booked
+    }
+  }
+
+  return false; //avilable
+}
+// 7. Prevent Selecting Already Booked Dates (Check-In and Check-Out)
+selectCheckIn.addEventListener("change", function () {
+  if (isDateBooked(this.value)) {
+    alert("This date is already booked");
+    this.value = "";
+  }
+});
+selectCheckOut.addEventListener("change", function () {
+  if (isDateBooked(this.value)) {
+    alert("This date is already booked");
+    this.value = "";
+  }
 });

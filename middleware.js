@@ -3,7 +3,8 @@ const Review = require("./models/review");
 //require ExpressCustom Error
 const ExpressError = require("./utils/ExpressError.js");
 // require schema.js for server side validation using joi
-const { listingSchema, reviewSchema } = require("./schema.js");
+const { listingSchema, reviewSchema, bookingSchema } = require("./schema.js");
+const express = require("express");
 
 module.exports.isLoggedIn = (req, res, next) => {
   // console.log(req.user);
@@ -84,4 +85,20 @@ module.exports.isNotOwner = async (req, res, next) => {
     return res.redirect(`/listings/${id}`);
   }
   next();
+};
+
+module.exports.validateBooking = async (req, res, next) => {
+  const { error } = bookingSchema.validate(req.body);
+
+  if (error) {
+    const errMsg = error.details.map((el) => el.message).join(",");
+    throw new ExpressError(400, errMsg);
+
+    // const { id } = req.params;
+    // const listing = await Listing.findById(id);
+    // req.flash("error", "must filled");
+    // res.redirect(`/listings/${id}/booking-page`);
+  } else {
+    next();
+  }
 };
