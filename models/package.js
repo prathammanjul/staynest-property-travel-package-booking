@@ -67,6 +67,10 @@ const packageSchema = new Schema({
   },
 
   itinerary: [itinerarySchema],
+  owner: {
+    type: Schema.Types.ObjectId,
+    ref: "User",
+  },
 });
 
 module.exports = mongoose.model("Package", packageSchema);

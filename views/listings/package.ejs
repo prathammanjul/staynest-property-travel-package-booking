@@ -163,7 +163,7 @@
   justify-content: space-between;
 }
 
-.rating .best-seller {
+.rating .category {
   color: white;
   background-color: #f97415;
   font-size: 12px;
@@ -181,10 +181,14 @@
   width: 100%;
   padding: 14px;
 }
-
-
-
-
+.category-mountains{
+  background-color: #0da2e7 !important;
+  color: #fff;
+}
+.category-adventure{
+  background-color: #2ecc71 !important;
+  color: #fff;
+}
 
 </style>
 
@@ -223,8 +227,8 @@
 
         <!-- Days and People -->
         <ul class="days-people">
-          <li><i class="fa-regular fa-calendar"></i> <%= package.duration %></li>
-          <li><i class="fa-solid fa-users"></i> <%=package.groupSize %></li>
+          <li><i class="fa-regular fa-calendar"></i> <%= package.duration %> Days</li>
+          <li><i class="fa-solid fa-users"></i> <%=package.groupSize %> people</li>
         </ul>
 
         <!-- Details / Highlights -->
@@ -245,7 +249,7 @@
 
         </div>
         <div class="btn">
-            <a class=" btn-signup book">View details →</a>
+            <a href="/packages/<%= package._id %>" class=" btn-signup book">View details →</a>
         </div>
       </div>
     </div>
@@ -271,8 +275,14 @@
 <script>
 
 
-
-
-
-
+  document.querySelectorAll(".category").forEach(element => {
+    const text = element.innerHTML;
+    if(text == "Mountains"){
+      element.classList.add("category-mountains")
+    }
+    if(text == "Adventure"){
+      element.classList.add("category-adventure");
+    }    
+  });
+  
 </script>

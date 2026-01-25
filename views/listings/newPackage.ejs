@@ -1,0 +1,260 @@
+<% layout("layouts/boilerplate") %>
+
+<style>
+     .btn-add{
+        border: solid black 1px;       
+     }
+
+     .btn-add:hover{
+        background-color: rgb(150, 206, 255);
+        color: black !important;
+         
+         border: solid black 1px;
+     }
+</style>
+
+<div class="row mt-4">
+  <div class="col-8 offset-2">
+    <h2 class="new-ls-heading">Create a New package</h2>
+
+    <!-- BOOTSTRAP FOR FORM VALIDATION - novalidate class="needs-validation" -->
+    <form
+      action="/packages"
+      method="post"
+      novalidate
+      class="needs-validation"
+
+    >
+      <div class="mb-3">
+        <label for="title" class="form-label">Title</label>
+        <input
+          name="package[title]"
+          type="text"
+          placeholder="Himalayan Escape"
+          class="form-control"
+          required
+        />
+
+        <!-- //bootstrap classes for success failure text -->
+        <div class="valid-feedback">Looks Good!</div>
+        <div class="invalid-feedback">Please enter the Title!</div>
+      </div>
+
+      <div class="mb-3">
+        <label for="description" class="form-label">Description</label>
+        <textarea
+          name="package[description]"
+          class="form-control"
+          placeholder="Discover the majestic Himalayas with serene valleys, ancient monasteries, and thrilling"
+          required
+        ></textarea>
+
+        <div class="valid-feedback">Looks Good!</div>
+        <div class="invalid-feedback">Please enter a short description</div>
+      </div>
+
+      <div class="row">
+        <div class="mb-3 col-md-6">
+          <label for="duration" class="form-label">Duration</label>
+          <input
+            name="package[duration]"
+            placeholder="10 Days"
+            type="number"
+            class="form-control"
+            required
+            min="0"
+          />
+
+          <div class="valid-feedback">Looks Good!</div>
+
+          <div class="invalid-feedback">Duration should be valid</div>
+        </div>
+
+        <div class="mb-3 col-md-6">
+          <label for="groupSize" class="form-label">Group Size</label>
+          <input
+            name="package[groupSize]"
+            type="number"
+            placeholder="10-12"
+            class="form-control"
+            required
+          />
+          <div class="valid-feedback">Looks Good!</div>
+          <div class="invalid-feedback">Group Size should be valid</div>
+        </div>
+
+        <div class="mb-3 col-md-6">
+          <label for="bestTime" class="form-label">Best time to visit</label>
+          <input
+            name="package[bestTime]"
+            type="text"
+            placeholder="November - April"
+            class="form-control"
+            required
+          />
+          <div class="valid-feedback">Looks Good!</div>
+          <div class="invalid-feedback">Best Time should be valid</div>
+        </div>
+
+        <div class="mb-3 col-md-6">
+          <label for="totalActivities" class="form-label"
+            >Write no of Activities</label
+          >
+          <input
+            name="package[totalActivities]"
+            type="number"
+            placeholder="4+"
+            class="form-control"
+            required
+          />
+          <div class="valid-feedback">Looks Good!</div>
+          <div class="invalid-feedback">Activities should be valid</div>
+        </div>
+
+        <div class="mb-3 col-md-6">
+          <label for="category" class="form-label ">category</label>
+          <input
+            name="package[category]"
+            type="text"
+            placeholder="Mountains , Adventure , Beach"
+            class="form-control "
+            required
+          />
+          <div class="valid-feedback">Looks Good!</div>
+          <div class="invalid-feedback">Category should be valid</div>
+        </div>
+
+
+        <div class="mb-3 col-md-6">
+          <label for="include" class="form-label ">Things Included? (Minimum 4)</label>
+          <input
+            name="package[include]"
+            type="text"
+            placeholder="All meals and refreshments " 
+            class="form-control "
+            required
+          />
+          <div class="valid-feedback">Looks Good!</div>
+          <div class="invalid-feedback">Enter atleast 4</div>
+        </div>
+
+        <div id="itinerary-container">
+            <!-- Day 1 -->
+            <div class="itinerary-day">
+                <h6>Day 1</h6>
+
+                <input
+                class="form-control mb-4"
+                name="itinerary[0][title]"
+                placeholder="Day 1 Title"
+                required
+                />
+
+                <input
+                class="form-control mb-4"
+                name="itinerary[0][description]"
+                placeholder="Day 1 Description"
+                required
+                />
+            </div>    
+        </div>
+
+<button type="button" id="addDayBtn" class=" btn btn-add mb-4 mt-3">
+  Add Day + 
+</button>
+
+      <!-- <div class="mb-3">
+        <label for="image" class="form-label">Upload Listing Image </label>
+        <input
+          name="package[image]"
+          type="file"
+          class="form-control"
+          accept="image/*"
+          multiple
+          required
+        />
+      </div> -->
+
+      <div class="row">
+        <div class="mb-3 col-md-6">
+          <label for="price" class="form-label">Price</label>
+          <input
+            name="package[price]"
+            placeholder="1200"
+            type="number"
+            class="form-control"
+            required
+            min="0"
+          />
+
+          <div class="valid-feedback">Looks Good!</div>
+
+          <div class="invalid-feedback">Price should be valid</div>
+        </div>
+
+        <div class="mb-3 col-md-6">
+          <label for="country" class="form-label">Country</label>
+          <input
+            name="package[country]"
+            type="text"
+            placeholder="India"
+            class="form-control"
+            required
+          />
+          <div class="valid-feedback">Looks Good!</div>
+          <div class="invalid-feedback">Country name should be valid</div>
+        </div>
+      </div>
+
+      <div class="mb-3">
+        <label for="location" class="form-label">Location</label>
+        <input
+          name="package[location]"
+          type="text"
+          placeholder="Jaipur / Rajasthan"
+          class="form-control"
+          required
+        />
+        <div class="valid-feedback">Looks Good!</div>
+        <div class="invalid-feedback">Location should be valid</div>
+      </div>
+
+      <button type="submit" style="width: 100%" class="btn btn-signup mt-3 mb-5"> add</button>
+    </form>
+  </div>
+</div>
+
+<script>
+  let dayCount = 1;
+
+  document.getElementById("addDayBtn").addEventListener("click" , ()=>{
+    const container = document.getElementById("itinerary-container");
+
+    const dayDiv = document.createElement("div");
+    dayDiv.classList.add("itinerary-day");
+    dayDiv.innerHTML = `
+                <h6>Day ${dayCount + 1}</h6>
+
+                <input
+                class="form-control mb-4"
+                name="itinerary[${dayCount}][title]"
+                placeholder="Day ${dayCount + 1} Title"
+                required
+                />
+
+                <input
+                class="form-control mb-3"
+                name="itinerary[${dayCount}][description]"
+                placeholder="Day ${dayCount + 1} Description"
+                required
+                />
+                `;
+
+                container.appendChild(dayDiv);
+                dayCount++;
+                // console.log(dayDiv);
+                // console.log(container);
+    
+  });
+
+</script>
