@@ -143,10 +143,12 @@ app.post("/packages", async (req, res) => {
 });
 
 // show package details
-app.get("/packages/:id", (req, res) => {
+app.get("/packages/:id", async (req, res) => {
   const { id } = req.params;
+  const package = await Package.findById(id);
+  console.log(package);
 
-  res.render("listings/showPackage");
+  res.render("listings/showPackage", { package });
 });
 
 // ------------------------------------------
