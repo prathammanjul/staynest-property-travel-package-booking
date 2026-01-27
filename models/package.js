@@ -16,45 +16,55 @@ const itinerarySchema = new Schema({
 const packageSchema = new Schema({
   title: {
     type: String,
+    required: true,
   },
   description: {
     type: String,
+    required: true,
   },
   duration: {
-    type: String,
+    type: Number,
+    required: true,
   },
   groupSize: {
-    type: String,
+    type: Number,
+    required: true,
   },
   bestTime: {
     type: String,
+    required: true,
   },
   totalActivities: {
-    type: String,
+    type: Number,
+    required: true,
   },
   price: {
     type: Number,
     required: true,
   },
+  image: {
+    url: String,
+    filename: String,
+  },
   location: {
     type: String,
+    required: true,
   },
   country: {
     type: String,
+    required: true,
   },
   category: {
     type: String,
   },
   include: {
     type: [String],
+    required: true,
   },
   rating: {
     type: Number,
   },
-  image: {
-    url: String,
-    filename: String,
-  },
+
   reviews: [
     {
       type: Schema.Types.ObjectId,
@@ -67,10 +77,6 @@ const packageSchema = new Schema({
   },
 
   itinerary: [itinerarySchema],
-  owner: {
-    type: Schema.Types.ObjectId,
-    ref: "User",
-  },
 });
 
 module.exports = mongoose.model("Package", packageSchema);

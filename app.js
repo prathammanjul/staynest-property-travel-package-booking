@@ -30,9 +30,6 @@ const User = require("./models/user.js");
 const Package = require("./models/package.js");
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
-const multer = require("multer");
-
-const upload = multer({ dest: "uploads/" });
 
 //require routes
 const listingRouter = require("./routes/listing.js");
@@ -102,6 +99,10 @@ app.use((req, res, next) => {
 // app.get("/", (req, res) => {
 //   res.send("Hii , I am root");
 // });
+// to upload files from form - parse the form data using #Multer.
+const multer = require("multer");
+const { storage } = require("./cloudConfig.js");
+const upload = multer({ storage });
 
 // for listing routes we are only use this route
 app.use("/listings", listingRouter);
@@ -122,8 +123,12 @@ app.get("/packages/new", (req, res) => {
 });
 
 // post add package
-app.post("/packages", async (req, res) => {
+app.post("/packages", upload.single("package[image]"), async (req, res) => {
   const newPackage = new Package(req.body.package);
+
+  let url = req.file.path;
+  let filename = req.file.filename;
+  newPackage.image = { url, filename };
 
   newPackage.include = req.body.package.include
     .split(",")
@@ -146,11 +151,36 @@ app.post("/packages", async (req, res) => {
 app.get("/packages/:id", async (req, res) => {
   const { id } = req.params;
   const package = await Package.findById(id);
-  console.log(package);
 
   res.render("listings/showPackage", { package });
 });
 
+//edit package
+app.get("/packages/:id/edit", async (req, res) => {
+  let { id } = req.params;
+  const package = await Package.findById(id);
+  console.log(package);
+  res.render("listings/editPackage", { package });
+});
+
+app.put("/packages/:id", async (req, res) => {
+  if (!req.body.package) {
+    throw new ExpressError(400, "Send Valid Data For package");
+  }
+  const { id } = req.params;
+  let updatePackage = await Package.findByIdAndUpdate(id, {
+    ...req.body.package,
+  });
+  if (req.file) {
+    let url = req.file.path;
+    let filename = req.file.filename;
+    updatePackage.image = { url, filename };
+    await updatePackage.save();
+  }
+  req.flash("success", "Package updated!");
+
+  res.redirect(`/packages/${id}`);
+});
 // ------------------------------------------
 app.use((req, res, next) => {
   next(new ExpressError(404, "Page Not Found !"));

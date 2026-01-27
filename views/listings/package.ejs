@@ -12,15 +12,21 @@
     padding: 1.5rem !important;
 
   }
-  .travel-package {
-    display: flex;
-    flex-wrap: wrap;
-    flex-shrink: 1;
-    justify-content: space-between;
-    background-color: #f8f8f6;
-    padding: 32px;
+.travel-package {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(24rem, 1fr));
+  gap: 24px;
+  /* background-color: #0da2e7; */
+  justify-items: center;
+  padding: 5rem;
+}
 
-  }
+
+
+
+
+
+
 
  
   .card-body p {
@@ -183,14 +189,14 @@
 
 <!-- Package Cards -->
 
-<section class="top-destination travel-package">
+<section class=" travel-package">
   <% for(let package of allPackages) { %>
   <div class="cards">
     <div class="card package-card" style="width: 24rem">
       <div class="card-body">
    
         <div class="rating">
-          <p class="best-seller category" ><%=package.category  %></p>
+          <p class="best-seller category" ><%=package.category %></p>
 
           <p class="star" >
             <i class="fa fa-star "></i><%= package.rating %>
@@ -205,8 +211,8 @@
 
         <!-- Days and People -->
         <ul class="days-people">
-          <li><i class="fa-regular fa-calendar"></i> <%= package.duration %> Days</li>
-          <li><i class="fa-solid fa-users"></i> <%=package.groupSize %> people</li>
+          <li><i class="fa-regular fa-calendar"></i> <%= package.duration %> </li>Days
+          <li><i class="fa-solid fa-users"></i> <%=package.groupSize %> </li>
         </ul>
 
         <!-- Details / Highlights -->

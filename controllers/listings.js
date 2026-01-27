@@ -115,7 +115,7 @@ module.exports.updateListings = async (req, res) => {
   }
   let { id } = req.params;
 
-  // first find and update the listing and then to save image put url and filename into the updateListing - save it.
+  // first find and update the listing and then to save image. put url and filename into the updateListing - save it.
   let updateListing = await Listing.findByIdAndUpdate(id, {
     ...req.body.listing,
   });

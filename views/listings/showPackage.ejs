@@ -3,25 +3,45 @@
 
   
 <style>
-  .head > * {
+ 
+ .head {
   position: relative;
-  z-index: 1;
-
-}
-.head {
-  position: relative;
-  /* background: url("/assets/images/mountains.jpg") no-repeat center/cover; */
-  /* color: white; */
   height: 555px;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
 
   display: flex;
   align-items: flex-end;
   padding-left: 2rem;
   padding-bottom: 1rem;
 }
+
+
+.head > * {
+  position: relative;
+  z-index: 1;
+}
+
+
+/* .head::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.35);
+  z-index: 0;
+} */
+.head::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  z-index: 0;
+}
 .head h1 {
   font-size: 60px;
   font-weight: bolder;
+  color: white;
 }
 
 .main-content {
@@ -30,22 +50,26 @@
   padding: 4rem 7rem 0rem 3rem;
   gap: 10rem;
 
+
 }
 .mid {
   display: flex;
   gap: 2rem;
   margin-bottom: 1rem;
   margin-top: 1rem;
+  color: white;
 
 }
 
 .mid p {
   font-size: 18px;
+
+
 }
 
 .bottom {
   display: flex;
-
+  color: white;
   gap: 2rem;
 }
 .bottom .discount-price {
@@ -54,34 +78,14 @@
   margin-bottom: 0% !important;
 }
 .person {
-  /* color: #ffffff99; */
+  color: #ffffff99;
 
 }
 .rating .best-seller {
   margin-bottom: 1rem;
 }
 
-.center {
-  display: flex;
-  align-items: center;
-  position: absolute;
-  bottom: 15px;
-  left: 18%;
-  gap: 0.1rem;
-}
-.like i {
-  color: white;
-}
-.like button {
-  background-color: #ffffff1a;
-  opacity: 0.8;
-  padding: 5px 10px 5px 10px;
-  border-radius: 10px;
-  border: #ffffff99 0.5px solid;
-}
-.like button:hover {
-  opacity: 1;
-}
+
 
 .back-btn {
   position: absolute !important;
@@ -151,7 +155,29 @@ h2 {
   font-size: 16px;
 }
 
+.center {
+  display: flex;
+  align-items: center;
 
+  position: absolute;
+  bottom: 15px;
+  left: 50%;
+  gap: 0.1rem;
+
+}
+.like i {
+  color: white;
+}
+.like button {
+  background-color: #ffffff1a;
+  opacity: 0.8;
+  padding: 5px 10px 5px 10px;
+  border-radius: 10px;
+  border: #ffffff99 0.5px solid;
+}
+.like button:hover {
+  opacity: 1;
+}
 
 /* Feature cards section */
 .features-grid {
@@ -259,6 +285,7 @@ h2 {
 .main-content {
   display: flex;
   justify-content: space-between;
+  padding: 4rem 7rem 0rem 7rem;
 
   gap: 10rem;
 
@@ -374,12 +401,15 @@ h2 {
 
 .rating {
   display: flex;
-  justify-content: space-between;
+  justify-content:space-evenly;
 }
 
 
 .rating .fa-star {
   color: #f97415;
+}
+.category{
+  color: white;
 }
 
 
@@ -391,13 +421,17 @@ h2 {
 </style>
 <div>
   <section class="poster">
-    <div class="head">
+    <div
+    class="head"
+    style="background-image: url('<%= package.image.url %>')"
+  >
+      
       <div class="back-btn btn" >
         <button class="button btn-signup" id="backBtn">Back</button>
       </div>
       <div class="content">
         <div class="rating">
-          <p class="best-seller premium"><%=package.category %></p>
+          <p class="best-seller premium category"><%=package.category %></p>
         </div>
         <h1><%=package.title %></h1>
         <div class="mid">
@@ -415,18 +449,19 @@ h2 {
         <p class="person">per person</p>
       </div>
 
-      <div class="center">
-        <div class="like">
+       <div class="center">
+        <div class="btn">
           <button><i class="fa-regular fa-heart"></i></button>
         </div>
 
+        <div class="btn">
+          <a href="/packages/<%= package.id%>/edit" class="btn-signup book">
+            edit →
+          </a>
+        </div>
+      </div>
 
-          <a class="btn-signup">
-            Edit
-          </a>
-          <a class="btn-signup">
-            Delete
-          </a>
+      
 
       </div>
     </div>

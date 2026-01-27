@@ -15,11 +15,11 @@
 
 <div class="row mt-4">
   <div class="col-8 offset-2">
-    <h2 class="new-ls-heading">Create a New package</h2>
+    <h2 class="new-ls-heading">Edit this package</h2>
 
     <!-- BOOTSTRAP FOR FORM VALIDATION - novalidate class="needs-validation" -->
     <form
-      action="/packages"
+      action="/packages/<%= package._id %>?_method=PUT"
       method="post"
       novalidate
       class="needs-validation"
@@ -30,8 +30,9 @@
         <label for="title" class="form-label">Title</label>
         <input
           name="package[title]"
+          value="<%=package.title %>"
           type="text"
-          placeholder="Himalayan Escape"
+
           class="form-control"
           required
         />
@@ -45,10 +46,10 @@
         <label for="description" class="form-label">Description</label>
         <textarea
           name="package[description]"
+
           class="form-control"
-          placeholder="Discover the majestic Himalayas with serene valleys, ancient monasteries, and thrilling"
           required
-        ></textarea>
+        ><%= package.description  %></textarea>
 
         <div class="valid-feedback">Looks Good!</div>
         <div class="invalid-feedback">Please enter a short description</div>
@@ -58,9 +59,9 @@
         <div class="mb-3 col-md-6">
           <label for="duration" class="form-label">Duration</label>
           <input
-            name="package[duration]"
-            placeholder="10 Days"
-            type="number"
+          name="package[duration]"
+          type="number"
+          value="<%= package.duration %>"
             class="form-control"
             required
             min="0"
@@ -75,8 +76,9 @@
           <label for="groupSize" class="form-label">Group Size</label>
           <input
             name="package[groupSize]"
+            value="<%=package.groupSize %>"
             type="number"
-            placeholder="10-12"
+
             class="form-control"
             required
           />
@@ -89,7 +91,7 @@
           <input
             name="package[bestTime]"
             type="text"
-            placeholder="November - April"
+            value="<%=package.bestTime  %>"
             class="form-control"
             required
           />
@@ -104,7 +106,7 @@
           <input
             name="package[totalActivities]"
             type="number"
-            placeholder="4+"
+            value="<%= package.totalActivities %>"
             class="form-control"
             required
           />
@@ -117,7 +119,7 @@
           <input
             name="package[category]"
             type="text"
-            placeholder="Mountains , Adventure , Beach"
+            value="<%= package.category %>"
             class="form-control "
             required
           />
@@ -131,7 +133,7 @@
           <input
             name="package[include]"
             type="text"
-            placeholder="All meals and refreshments " 
+            value="<%= package.include %>" 
             class="form-control "
             required
           />
@@ -139,60 +141,61 @@
           <div class="invalid-feedback">Enter atleast 4</div>
         </div>
 
+     
          <div class="mb-3">
         <label for="image" class="form-label">Upload Image</label>
         <input
           name="package[image]"
           type="file"
           class="form-control"
-          accept="image/*"
-          multiple
-          required
         />
       </div>
-        <div id="itinerary-container">
-            <!-- Day 1 -->
-            <div class="itinerary-day">
-                <h6>Day 1</h6>
+      <div id="itinerary-container">
+  <% package.itinerary.forEach((day, index) => { %>
+    <div class="itinerary-day">
+      <h6>Day <%= index + 1 %></h6>
 
-                <input
-                class="form-control mb-4"
-                name="itinerary[0][title]"
-                placeholder="Day 1 Title"
-                required
-                />
+      <input
+        class="form-control mb-4"
+        name="itinerary[<%= index %>][title]"
+        value="<%= day.title %>"
+        required
+      />
 
-                <input
-                class="form-control mb-4"
-                name="itinerary[0][description]"
-                placeholder="Day 1 Description"
-                required
-                />
-            </div>    
+      <input
+        class="form-control mb-4"
+        name="itinerary[<%= index %>][description]"
+        value="<%= day.description %>"
+        required
+      />
+    </div>
+  <% }) %>
+</div>
+    
         </div>
 
 <button type="button" id="addDayBtn" class=" btn btn-add mb-4 mt-3">
   Add Day + 
 </button>
 
-      <!-- <div class="mb-3">
+      <div class="mb-3">
         <label for="image" class="form-label">Upload Listing Image </label>
         <input
           name="package[image]"
           type="file"
           class="form-control"
-          accept="image/*"
-          multiple
-          required
+
+
+
         />
-      </div> -->
+      </div>
 
       <div class="row">
         <div class="mb-3 col-md-6">
           <label for="price" class="form-label">Price</label>
           <input
             name="package[price]"
-            placeholder="1200"
+            value="<%=package.price %>" 
             type="number"
             class="form-control"
             required
@@ -209,7 +212,7 @@
           <input
             name="package[country]"
             type="text"
-            placeholder="India"
+            value="<%=package.country  %>"
             class="form-control"
             required
           />
@@ -223,7 +226,7 @@
         <input
           name="package[location]"
           type="text"
-          placeholder="Jaipur / Rajasthan"
+          value="<%=package.location %>"
           class="form-control"
           required
         />

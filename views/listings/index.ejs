@@ -1,7 +1,7 @@
 <% layout("/layouts/boilerplate") %>
 <link href="/css/indexPage.css" rel="stylesheet" />
 
-<div id="filters">
+<div id="filters" class="ps-5 pe-5">
 
   <div class="fliter">
     <a href="/listings?category=Trending"
@@ -102,7 +102,7 @@
   </div>
 
   <% } else { %> 
-  <div class="row row-cols-lg-3 row-cols-md-2 rows-cols-sm-1 mt-3">
+  <div class="row row-cols-lg-3 row-cols-md-2 rows-cols-sm-1 mt-3 ps-5 pe-5">
     <% for(let listing of allListings ) { %>
     <a href="/listings/<%= listing._id  %>" class="listing-link">
       <div class="index-card card">
