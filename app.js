@@ -28,12 +28,15 @@ const {
   isLoggedIn,
   validatePackage,
   isOwner,
+  validateReview,
+  isPackageOwner,
   saveRedirectUrl,
 } = require("./middleware.js");
 const passport = require("passport");
 const LocalStrategy = require("passport-local");
 const User = require("./models/user.js");
 const Package = require("./models/package.js");
+
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 const {
@@ -114,6 +117,7 @@ app.use((req, res, next) => {
 const multer = require("multer");
 const { storage } = require("./cloudConfig.js");
 const wrapAsync = require("./utils/wrapAsync.js");
+const Review = require("./models/review.js");
 const upload = multer({ storage });
 
 // for listing routes we are only use this route
@@ -198,11 +202,11 @@ app.get(
 app.get(
   "/packages/:id/edit",
   isLoggedIn,
-  isOwner,
+  isPackageOwner,
   wrapAsync(async (req, res) => {
     let { id } = req.params;
     const package = await Package.findById(id);
-    console.log(package);
+    // console.log(package);
     res.render("listings/editPackage", { package, isOwner });
   }),
 );
@@ -211,7 +215,7 @@ app.put(
   "/packages/:id",
   upload.single("package[image]"),
   isLoggedIn,
-  isOwner,
+  isPackageOwner,
   validatePackage,
   wrapAsync(async (req, res) => {
     if (!req.body.package) {
@@ -261,7 +265,7 @@ app.put(
 app.delete(
   "/packages/:id",
   isLoggedIn,
-  isOwner,
+  isPackageOwner,
   wrapAsync(async (req, res) => {
     let { id } = req.params;
     let package = await Package.findByIdAndDelete(id);
@@ -270,6 +274,43 @@ app.delete(
   }),
 );
 
+// reviews
+app.post(
+  "/packages/:id/reviews",
+  isLoggedIn,
+  validateReview,
+  wrapAsync(async (req, res) => {
+    let { id } = req.params;
+    let package = await Package.findById(id);
+    let { review } = req.body;
+
+    let newReview = new Review(review);
+    newReview.author = req.user._id;
+
+    package.reviews.push(newReview);
+    await newReview.save();
+    await package.save();
+    console.log(newReview);
+    console.log(package);
+
+    req.flash("success", "Review added!");
+
+    res.redirect(`/packages/${package._id}`);
+  }),
+);
+
+app.delete(
+  "/packages/:id/reviews/:reviewId",
+  wrapAsync(async (req, res) => {
+    let { id, reviewId } = req.params;
+    // remove the review id (reference) from the listing's reviews array
+    await Package.findByIdAndUpdate(id, { $pull: { reviews: reviewId } });
+    // delete the actual review document from Review collection
+    await Review.findByIdAndDelete(reviewId);
+    req.flash("success", "Review Deleted!");
+    res.redirect(`/packages/${id}`);
+  }),
+);
 // ------------------------------------------
 app.use((req, res, next) => {
   next(new ExpressError(404, "Page Not Found !"));

@@ -122,7 +122,7 @@ module.exports.validatePackage = (req, res, next) => {
 };
 
 // check for the package owner
-module.exports.isOwner = async (req, res, next) => {
+module.exports.isPackageOwner = async (req, res, next) => {
   let { id } = req.params;
   let package = await Package.findById(id);
   if (!package.owner.equals(res.locals.currUser._id)) {

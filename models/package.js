@@ -61,9 +61,9 @@ const packageSchema = new Schema({
     type: [String],
     required: true,
   },
-  rating: {
-    type: Number,
-  },
+  // rating: {
+  //   type: Number,
+  // },
 
   reviews: [
     {

@@ -109,9 +109,6 @@
 
 
 
-
-
-
 .banner {
   background: linear-gradient(135deg, #3591ce, #1f7f8c, #2093a2);
   height: 384px;
@@ -198,9 +195,9 @@
         <div class="rating">
           <p class="best-seller category" ><%=package.category %></p>
 
-          <p class="star" >
+          <!-- <p class="star" >
             <i class="fa fa-star "></i><%= package.rating %>
-          </p>
+          </p> -->
         </div>
 
         <!-- Package Title -->
@@ -241,19 +238,20 @@
    <% } %>
 </section>
 
+
 <div class="travel-agent">
   <h1>Can't find the perfect package?</h1>
   <p>
     Our travel experts can help you create a custom package tailored to your
     preferences and <br />budget.
   </p>
+  <div class="btn">
+    <a class="btn-signup"
+      >Contact Travel Expert &rarr;</a
+    >
+  </div>
 </div>
 
-<div class="btn">
-  <a class="btn-signup"
-    >Contact Travel Expert &rarr;</a
-  >
-</div>
 
 
 <script>

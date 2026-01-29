@@ -45,6 +45,7 @@ module.exports.showIndividualListings = async (req, res) => {
       },
     })
     .populate("owner");
+  // console.log(listing.owner);
 
   if (!listing) {
     req.flash("error", "Listing you requested for does not exist!");
@@ -138,7 +139,7 @@ module.exports.destroyListings = async (req, res) => {
   let { id } = req.params;
 
   const deleteList = await Listing.findByIdAndDelete(id);
-  //   console.log(deleteList);
+  // console.log(deleteList);
   req.flash("success", "listing deleted!");
   res.redirect("/listings");
 };

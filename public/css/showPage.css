@@ -1,8 +1,8 @@
 .main-content {
   display: flex;
+  padding: 5rem 8rem 4rem 8rem;
   justify-content: space-between;
 
-  margin-top: 4rem;
   gap: 5rem;
 }
 .left-side {
@@ -12,7 +12,7 @@
 }
 
 .right-sidebar {
-  flex: 1;
+  /* flex: 1; */
   max-width: 400px;
   align-self: flex-start;
 
@@ -126,8 +126,4 @@
 
 .review-content {
   padding: 0 7rem 0rem 7rem;
-}
-
-.listing-head {
-  padding: 0rem 7rem 0rem 7rem;
 }

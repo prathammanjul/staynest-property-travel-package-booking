@@ -6,6 +6,9 @@
   font-size: 0.1em;
   color: transparent;
 }
+.five-stars {
+  left: 6rem;
+}
 
 .starability-result:after {
   content: " ";

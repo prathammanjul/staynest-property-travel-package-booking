@@ -4,97 +4,7 @@
   
 <style>
  
- .head {
-  position: relative;
-  height: 555px;
-  background-repeat: no-repeat;
-  background-position: center;
-  background-size: cover;
 
-  display: flex;
-  align-items: flex-end;
-  padding-left: 2rem;
-  padding-bottom: 1rem;
-}
-
-
-.head > * {
-  position: relative;
-  z-index: 1;
-}
-
-
-/* .head::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.35);
-  z-index: 0;
-} */
-.head::after {
-  content: "";
-  position: absolute;
-  inset: 0;
-  background-color: rgba(0, 0, 0, 0.6);
-  z-index: 0;
-}
-.head h1 {
-  font-size: 60px;
-  font-weight: bolder;
-  color: white;
-}
-
-.main-content {
-  display: flex;
-  justify-content: space-between;
-  padding: 4rem 7rem 0rem 3rem;
-  gap: 10rem;
-
-
-}
-.mid {
-  display: flex;
-  gap: 2rem;
-  margin-bottom: 1rem;
-  margin-top: 1rem;
-  color: white;
-
-}
-
-.mid p {
-  font-size: 18px;
-
-
-}
-
-.bottom {
-  display: flex;
-  color: white;
-  gap: 2rem;
-}
-.bottom .discount-price {
-  font-size: 30px;
-  font-weight: bold;
-  margin-bottom: 0% !important;
-}
-.person {
-  color: #ffffff99;
-
-}
-.rating .best-seller {
-  margin-bottom: 1rem;
-}
-
-
-
-.back-btn {
-  position: absolute !important;
-  top: 30px;
-  left: 15px;
-}
-.back-btn .button {
-  font-size: 14px;
-}
 
 .section {
   padding-bottom: 1.5rem;
@@ -271,7 +181,7 @@ h2 {
   /* margin: 0; */
 }
 .includes ul {
-  margin-bottom: 4rem;
+  /* margin-bottom: 4rem; */
 }
 .trip-sidebar {
   background-color: #0da2e7;
@@ -401,7 +311,8 @@ h2 {
 
 .rating {
   display: flex;
-  justify-content:space-evenly;
+
+
 }
 
 
@@ -411,7 +322,21 @@ h2 {
 .category{
   color: white;
 }
+.review-content{
+  padding: 4rem 7rem 0rem 7rem;
 
+}
+
+.fa-star{
+  color: #f97415;
+}
+
+.starability-grow > label,
+.starability-result::after {
+  /* filter: hue-rotate(12deg) saturate(6) brightness(1.1); */
+  filter:  saturate(20) hue-rotate(-10deg) brightness(1.05);
+
+}
 
 
 
@@ -453,14 +378,14 @@ h2 {
         
 
         <% if (currUser && currUser._id.equals(package.owner._id)) { %>
-        <div class="btn">
-          <a href="/packages/<%= package.id%>/edit" class="btn-signup book">
-            Edit →
-          </a>
-        </div>
-        <form method="post" action="/packages/<%= package.id %>?_method=Delete">
-          <button class="btn-signup book">Delete this listing</button>
-        </form>
+          <div class="btn">
+            <a href="/packages/<%= package.id%>/edit" class="btn-signup book">
+              Edit →
+            </a>
+          </div>
+          <form method="post" action="/packages/<%= package.id %>?_method=Delete">
+            <button class="btn-signup book">Delete this listing</button>
+          </form> 
       </div>
       </div>
       <% } %>
@@ -479,13 +404,13 @@ h2 {
       <div class="section">
         <div class="bullet-details">
           <div class="icon"><i class="fa-regular fa-clock"></i></div>
-          <div class="days"><%=package.duration %></div>
+          <div class="days"><%=package.duration %> Days </div>
           <div class="duration">Duration</div>
         </div>
 
         <div class="bullet-details">
           <div class="icon"><i class="fa-solid fa-users"></i></div>
-          <div class="days"><%=package.groupSize %></div>
+          <div class="days"><%=package.groupSize %> people</div>
           <div class="duration">Group Size</div>
         </div>
 
@@ -594,8 +519,11 @@ h2 {
           <% } %>
         </ul>
       </div>
+
+      
     </section>
 
+    
     <!-- Right Sidebar -->
     <aside class="right-sidebar">
       <!-- Booking Card -->
@@ -650,6 +578,126 @@ h2 {
       </div>
     </aside>
   </div>
+  <!-- <hr>  -->
+    
+
+
+  
+
+  <!-- REVIEW SECTION  -->
+  <div class="review-content show-heading ">
+    <!-- <hr /> -->
+
+    <% if (currUser && !package.owner.equals(currUser._id)) { %>
+      <!-- <hr> -->
+      <h4 class="mb-4 ">Leave a Reviews</h4>
+
+  <form
+    novalidate
+    class="mb-5 needs-validation"
+    action="/packages/<%= package.id %>/reviews"
+    method="POST"
+  >
+  
+      <div class="mt-3">
+        <label for="rating" class="form-label"> Rating</label>
+    <fieldset class="starability-grow fa-stars ">
+  <input type="radio" id="no-rate" class="input-no-rate " name="review[rating]"value="1" checked aria-label="No rating." />
+  <input type="radio" id="first-rate1" name="review[rating]" value="1" />
+  <label for="first-rate1" title="Terrible">1 star</label>
+  <input type="radio" id="first-rate2" name="review[rating]" value="2" />
+  <label for="first-rate2" title="Not good">2 stars</label>
+  <input type="radio" id="first-rate3" name="review[rating]" value="3" />
+  <label for="first-rate3" title="Average">3 stars</label>
+  <input type="radio" id="first-rate4" name="review[rating]" value="4" />
+  <label for="first-rate4" title="Very good">4 stars</label>
+  <input type="radio" id="first-rate5" name="review[rating]" value="5" />
+  <label for="first-rate5" title="Amazing">5 stars</label>
+</fieldset>
+ </div>
+
+    <div class="mb-3">
+      <label for="comment" class="form-label"> Comments</label>
+      <textarea
+        name="review[comment]"
+        id="comment"
+        cols="30"
+        rows="5"
+        class="form-control"
+        required
+      ></textarea>
+
+      <!-- //bootstrap classes for success failure text -->
+      <div class="valid-feedback">Looks Good!</div>
+      <div class="invalid-feedback">Please write the review!</div>
+    </div>
+
+    <button class="btn btn-login mt-3">Submit</button>
+  </form>
+<% } %>
+
+<% if(package.reviews.length > 0){ %>
+    <!-- <hr> -->
+    
+<section class="top-destination">
+  <div class="heading">
+    <h1>What Our Travelers Say</h1>
+    <h5>
+      Real experiences from real travelers who chose stayNest for their <br />
+      adventures
+    </h5>
+  </div>
+
+
+
+  
+  <div class="testimonials-scroll-container">
+  <% for (let reviews of package.reviews) { %>
+
+    
+   
+  <div class="testimonial-card review-card">
+      <div class="quote">❝</div>
+         <p class="starability-result staticCardStar five-stars " data-rating = <%=reviews.rating %>>
+  </p> 
+      <p class="customer-review">
+       <%=reviews.comment  %>
+      </p>
+      <div class="test-details">
+        <div class="user-avatar">
+          <img src="/uploads/david.jpg" alt="Sarah Johnson" />
+        </div>
+
+        <div class="user-info">
+          <span class="user-name"><%=reviews.author.username  %></span>
+          <span class="from"><%=package.country%></span>
+          <span class="pack-name"><%=package.title  %></span>
+        </div>
+      </div>
+          <!-- Review Delete button  -->
+
+    <form
+      action="/packages/<%= package._id %>/reviews/<%= reviews._id %>?_method=DELETE"
+      method="POST"
+      class="mb-1 mt-1"
+    >
+      <% if (currUser && !package.owner.equals(currUser._id)) { %>
+      <button class="btn btn-sm btn-login ">Delete</button>
+        <% } %>
+    </form>
+    </div>
+  
+
+
+  <% } %>
+ </div>
+</div>
+</div>
+</section>
+
+<% } %>
+
+
 
   <div class="travel-agent">
     <h1>Would you like to customize this package?</h1>
