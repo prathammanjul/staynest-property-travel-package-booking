@@ -22,6 +22,7 @@
         <a class="nav-link" href="/packages">Package</a>
       </div>
 
+      <% if (currentPath !== "/login" && currentPath !== "/signup") { %>
       <div class="navbar-nav ms-auto">
         <form class="d-flex" role="search" method="get">
           <% if(currentCategory){ %>
@@ -41,6 +42,7 @@
         </form>
       </div>
 
+      <% } %>
       <div class="navbar-nav ms-auto">
         <!-- <a class="nav-link" href="/packages/new">Host Your Place</a> -->
            <div class="dropdown">

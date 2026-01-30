@@ -22,6 +22,7 @@ module.exports.index = async (req, res) => {
       { title: { $regex: search, $options: "i" } },
       { location: { $regex: search, $options: "i" } },
       { country: { $regex: search, $options: "i" } },
+      { categories: { $regex: search, $options: "i" } },
     ];
   }
 

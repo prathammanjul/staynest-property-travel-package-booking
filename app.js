@@ -106,6 +106,7 @@ app.use((req, res, next) => {
   res.locals.currUser = req.user;
   res.locals.currentCategory = req.query.category;
   res.locals.searchText = req.query.search;
+  res.locals.currentPath = req.path;
   next();
 });
 
@@ -131,17 +132,25 @@ app.use("/listings", bookingRouter);
 app.get(
   "/packages",
   wrapAsync(async (req, res) => {
-    const { category } = req.query;
+    const { category, search } = req.query;
 
     let Packagefilter = {};
 
     if (category) {
       Packagefilter.categories = category;
     }
+    if (search) {
+      Packagefilter.$or = [
+        { title: { $regex: search, $options: "i" } },
+        { location: { $regex: search, $options: "i" } },
+        { country: { $regex: search, $options: "i" } },
+        { categories: { $regex: search, $options: "i" } },
+      ];
+    }
 
     const allPackages = await Package.find(Packagefilter);
 
-    res.render("listings/package", { allPackages });
+    res.render("listings/package", { allPackages, currentCategory: category });
   }),
 );
 
