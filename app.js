@@ -27,11 +27,9 @@ const flash = require("connect-flash");
 const {
   isLoggedIn,
   validatePackage,
-  isOwner,
   validateReview,
   isPackageOwner,
   isNotPackageOwner,
-  saveRedirectUrl,
 } = require("./middleware.js");
 const passport = require("passport");
 const LocalStrategy = require("passport-local");
@@ -53,6 +51,9 @@ const listingRouter = require("./routes/listing.js");
 const reviewRouter = require("./routes/review.js");
 const userRouter = require("./routes/user.js");
 const bookingRouter = require("./routes/booking.js");
+const packageRouter = require("./routes/package.js");
+const packageBookingRouter = require("./routes/packageBooking.js");
+const packageReviewRouter = require("./routes/packageReview.js");
 
 // Connect to database/ create database
 let MONGO_URL = "mongodb://127.0.0.1:27017/stayNest";
@@ -122,6 +123,7 @@ const multer = require("multer");
 const { storage } = require("./cloudConfig.js");
 const wrapAsync = require("./utils/wrapAsync.js");
 const Review = require("./models/review.js");
+const { showPackages } = require("./controllers/package.js");
 const upload = multer({ storage });
 
 // for listing routes we are only use this route
@@ -129,276 +131,9 @@ app.use("/listings", listingRouter);
 app.use("/listings/:id/reviews", reviewRouter);
 app.use("/", userRouter);
 app.use("/listings", bookingRouter);
-
-// ---------------------------------------------
-// Render  package listing page
-app.get(
-  "/packages",
-  wrapAsync(async (req, res) => {
-    const { category, search } = req.query;
-
-    let Packagefilter = {};
-
-    if (category) {
-      Packagefilter.categories = category;
-    }
-    if (search) {
-      Packagefilter.$or = [
-        { title: { $regex: search, $options: "i" } },
-        { location: { $regex: search, $options: "i" } },
-        { country: { $regex: search, $options: "i" } },
-        { categories: { $regex: search, $options: "i" } },
-      ];
-    }
-
-    const allPackages = await Package.find(Packagefilter);
-
-    res.render("listings/package", { allPackages, currentCategory: category });
-  }),
-);
-
-// render package form
-app.get(
-  "/packages/new",
-  isLoggedIn,
-  validatePackage,
-  wrapAsync(async (req, res) => {
-    res.render("listings/newPackage");
-  }),
-);
-
-// post add package
-app.post(
-  "/packages",
-  upload.single("package[image]"),
-  isLoggedIn,
-  validatePackage,
-  wrapAsync(async (req, res) => {
-    const newPackage = new Package(req.body.package);
-    newPackage.owner = req.user._id;
-
-    let url = req.file.path;
-    let filename = req.file.filename;
-    newPackage.image = { url, filename };
-
-    newPackage.include = req.body.package.include
-      .split(",")
-      .map((item) => item.trim())
-      .filter((item) => item.length > 0);
-
-    newPackage.itinerary = req.body.itinerary.map((item, index) => ({
-      day: index + 1,
-      title: item.title,
-      description: item.description,
-    }));
-
-    await newPackage.save();
-    req.flash("success", "New Listing Created!");
-
-    res.redirect("/packages");
-  }),
-);
-
-// show package details
-app.get(
-  "/packages/:id",
-  wrapAsync(async (req, res) => {
-    const { id } = req.params;
-    const package = await Package.findById(id)
-      .populate({
-        path: "reviews",
-        populate: {
-          path: "author",
-        },
-      })
-      .populate("owner");
-
-    res.render("listings/showPackage", { package });
-  }),
-);
-
-//edit package
-app.get(
-  "/packages/:id/edit",
-  isLoggedIn,
-  isPackageOwner,
-  wrapAsync(async (req, res) => {
-    let { id } = req.params;
-    const package = await Package.findById(id);
-
-    res.render("listings/editPackage", { package, isOwner });
-  }),
-);
-
-app.put(
-  "/packages/:id",
-  upload.single("package[image]"),
-  isLoggedIn,
-  isPackageOwner,
-  validatePackage,
-  wrapAsync(async (req, res) => {
-    if (!req.body.package) {
-      throw new ExpressError(400, "Send Valid Data For package");
-    }
-
-    const { id } = req.params;
-
-    let updatePackage = await Package.findByIdAndUpdate(
-      id,
-      { ...req.body.package },
-      { new: true },
-    );
-
-    let includes = req.body.package.include;
-
-    if (Array.isArray(includes)) {
-      updatePackage.include = includes;
-    } else {
-      updatePackage.include = includes
-        .split(",")
-        .map((item) => item.trim())
-        .filter((item) => item.length > 0);
-    }
-
-    updatePackage.itinerary = req.body.itinerary.map((item, index) => ({
-      day: index + 1,
-      title: item.title,
-      description: item.description,
-    }));
-
-    if (req.file) {
-      updatePackage.image = {
-        url: req.file.path,
-        filename: req.file.filename,
-      };
-    }
-
-    await updatePackage.save();
-
-    req.flash("success", "Package updated!");
-    res.redirect(`/packages/${id}`);
-  }),
-);
-
-// DELETE PACKAGE
-app.delete(
-  "/packages/:id",
-  isLoggedIn,
-  isPackageOwner,
-  wrapAsync(async (req, res) => {
-    let { id } = req.params;
-    let package = await Package.findByIdAndDelete(id);
-    req.flash("success", "Package deleted");
-    res.redirect("/packages");
-  }),
-);
-
-// reviews
-app.post(
-  "/packages/:id/reviews",
-  isLoggedIn,
-  validateReview,
-  wrapAsync(async (req, res) => {
-    let { id } = req.params;
-    let package = await Package.findById(id);
-    let { review } = req.body;
-
-    let newReview = new Review(review);
-    newReview.author = req.user._id;
-
-    package.reviews.push(newReview);
-    await newReview.save();
-    await package.save();
-    // console.log(newReview);
-    // console.log(package);
-
-    req.flash("success", "Review added!");
-
-    res.redirect(`/packages/${package._id}`);
-  }),
-);
-
-app.delete(
-  "/packages/:id/reviews/:reviewId",
-  isLoggedIn,
-  wrapAsync(async (req, res) => {
-    let { id, reviewId } = req.params;
-    // remove the review id (reference) from the listing's reviews array
-    await Package.findByIdAndUpdate(id, { $pull: { reviews: reviewId } });
-    // delete the actual review document from Review collection
-    await Review.findByIdAndDelete(reviewId);
-    req.flash("success", "Review Deleted!");
-    res.redirect(`/packages/${id}`);
-  }),
-);
-
-// render booking form
-
-app.get(
-  "/packages/:id/packageBookingForm",
-  isLoggedIn,
-  isNotPackageOwner,
-  wrapAsync(async (req, res) => {
-    const { id } = req.params;
-    const package = await Package.findById(id);
-    //send checkin checkout data
-    const existingBooking = await Booking.find(
-      { package: id },
-      { checkIn: 1, checkOut: 1 },
-    );
-    res.render("listings/packageBookingForm", { package, existingBooking });
-  }),
-);
-
-// Create Package booking (POST)
-
-app.post(
-  "/packages/:id/packageBookingForm",
-  isLoggedIn,
-  validatePackage,
-  wrapAsync(async (req, res) => {
-    const { id } = req.params;
-    const { checkIn, checkOut } = req.body.booking;
-
-    //Fetch Listing data to get location , country to insert in Booking database
-    const package = await Package.findById(id);
-
-    // Convert string dates → Date objects
-    const checkInDate = new Date(checkIn);
-    const checkOutDate = new Date(checkOut);
-    const today = new Date();
-    // comparison becomes date-only, not time-based.
-    today.setHours(0, 0, 0, 0); // normalize
-
-    //  DOUBLE BOOKING CHECK( Check if there is any existing booking on same date)
-    const conflictingBooking = await Booking.findOne({
-      package: id,
-      checkIn: { $lt: checkOutDate },
-      checkOut: { $gt: checkInDate },
-    });
-    //Conflict found - NO Booking
-    if (conflictingBooking) {
-      req.flash(
-        "error",
-        "This listing is already booked for the selected dates.",
-      );
-      return res.redirect(`/packages/${id}/packageBookingForm`);
-    }
-    // 3️ Create booking Object (only after All validation passes)
-    const newBooking = new Booking({
-      ...req.body.booking,
-      location: package.location,
-      country: package.country,
-      user: req.user._id,
-      package: id,
-    });
-
-    await newBooking.save();
-
-    req.flash("success", "Booking confirmed!");
-    res.redirect(`/packages/${id}`);
-  }),
-);
+app.use("/packages", packageRouter);
+app.use("/packages", packageBookingRouter);
+app.use("/packages/:id/reviews", packageReviewRouter);
 
 // ------------------------------------------
 app.use((req, res, next) => {

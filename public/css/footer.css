@@ -1,0 +1,158 @@
+.footer {
+  padding-top: 60px;
+  padding-left: 100px;
+  padding-right: 100px;
+  margin-top: 0%;
+
+  background-color: #37475a;
+  color: white;
+}
+
+.navbar-brands {
+  font-weight: 600;
+  font-size: 1.8rem;
+  color: white !important;
+  text-decoration: none;
+}
+
+.icon-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 43px;
+  height: 43px;
+  border-radius: 12px;
+  background: linear-gradient(135deg, #06beb6, #48b1bf);
+  margin-right: 10px;
+}
+
+.top-section {
+  display: flex;
+  opacity: 0.9;
+}
+
+.links {
+  display: flex;
+  margin-left: 300px;
+}
+
+.quick-links ul li a {
+  text-decoration: none;
+  list-style-type: none;
+  color: white;
+  opacity: 0.9;
+}
+
+.quick-links ul li a:hover {
+  color: white;
+  opacity: 1;
+}
+
+.quick-links ul {
+  list-style-type: none;
+  line-height: 2rem;
+  padding-left: 0px;
+  margin-top: 1.3rem;
+}
+
+.support ul {
+  list-style-type: none;
+  line-height: 2rem;
+  padding-left: 0px;
+  margin-top: 1.3rem;
+}
+
+.support ul li a {
+  text-decoration: none;
+  list-style-type: none;
+  color: white;
+  opacity: 0.9;
+  margin-left: 0px;
+}
+.support ul li a:hover {
+  color: white;
+  opacity: 1;
+}
+
+.links h4 {
+  font-weight: 600;
+}
+
+.links .quick-links {
+  margin-right: 100px;
+}
+.icon-wrapper i {
+  color: white;
+  font-size: 28px;
+}
+
+#description {
+  margin-top: 28px;
+  opacity: 0.9;
+}
+
+.contact-info {
+  margin-top: 20px;
+}
+.contact-info i {
+  margin-right: 10px;
+}
+
+.contact-info .icon {
+  color: rgb(81, 173, 239);
+}
+
+.whole {
+  display: flex;
+  justify-content: space-between;
+  padding-top: 30px;
+}
+
+.newsletter-form .email-input {
+  padding: 7px 10px;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 8px;
+  background: white;
+  font-size: 0.9rem;
+  outline: none;
+  width: 190px;
+  margin-top: 20px;
+}
+
+.subscribe-box input::placeholder {
+  color: rgba(255, 255, 255, 0.6);
+}
+
+.subscribe-btn {
+  padding: 7px 10px;
+  border: none;
+  border-radius: 8px;
+  background: #1da1f2;
+  color: white;
+  font-size: 0.9rem;
+  font-weight: bold;
+
+  margin-left: 14px;
+}
+
+.subscribe-btn:hover {
+  opacity: 0.9;
+  cursor: pointer;
+}
+
+.bottom-section {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 30px;
+  opacity: 0.9;
+}
+.social-links a {
+  margin-left: 20px;
+  font-size: 18px;
+  color: white;
+  opacity: 0.7 !important;
+}
+.social-links a:hover {
+  opacity: 1 !important;
+  color: white;
+}

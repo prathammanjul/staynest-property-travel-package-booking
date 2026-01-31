@@ -122,10 +122,10 @@
           >
             <option value="">Select your option</option>
             <option value="Mountains">Mountains</option>
-            <option value="Trending">Trending</option>
+            <!-- <option value="Trending">Trending</option> -->
             <option value="Beach Escapes">Beach Escapes</option>
             <option value="Iconic cities">Iconic cities</option>
-            <option value="Castles">Castles</option>
+            <!-- <option value="Castles">Castles</option>s -->
             <option value="Wildlife-Safari">Wildlife Safari</option>
             <option value="Adventure">Adventure</option>
             <option value="Camping">Camping</option>
@@ -257,15 +257,16 @@
   </div>
 </div>
 
+
 <script>
   let dayCount = 1;
 
-  document.getElementById("addDayBtn").addEventListener("click", () => {
-    const container = document.getElementById("itinerary-container");
+document.getElementById("addDayBtn").addEventListener("click", () => {
+  const container = document.getElementById("itinerary-container");
 
-    const dayDiv = document.createElement("div");
-    dayDiv.classList.add("itinerary-day");
-    dayDiv.innerHTML = `
+  const dayDiv = document.createElement("div");
+  dayDiv.classList.add("itinerary-day");
+  dayDiv.innerHTML = `
                 <h6>Day ${dayCount + 1}</h6>
 
                 <input
@@ -283,9 +284,10 @@
                 />
                 `;
 
-    container.appendChild(dayDiv);
-    dayCount++;
-    // console.log(dayDiv);
-    // console.log(container);
-  });
+  container.appendChild(dayDiv);
+  dayCount++;
+  // console.log(dayDiv);
+  // console.log(container);
+});
+
 </script>

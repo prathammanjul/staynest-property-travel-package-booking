@@ -25,7 +25,7 @@ module.exports.bookingSchema = Joi.object({
     lastName: Joi.string().required(),
     email: Joi.string().required(),
     contact: Joi.number().required(),
-    categories: Joi.string().required(),
+    // categories: Joi.string().required(),
     checkIn: Joi.date().required(),
     checkOut: Joi.date().required(),
     guests: Joi.number().required(),

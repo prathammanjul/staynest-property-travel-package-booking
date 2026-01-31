@@ -3,12 +3,12 @@
 
 <div id="filters"  class="ps-5 pe-5">
 
-  <div class="filter">
+  <!-- <div class="filter">
     <a href="/listings?category=Trending"
       ><i class="fa-solid fa-fire"></i>
       <p>Trending</p>
     </a>
-  </div>
+  </div> -->
   <div class="filter">
     <a href="/listings?category=Rooms"
       ><i class="fa-solid fa-bed"></i>
@@ -77,10 +77,32 @@
     </a>
   </div>
 
+   <% if (currentPath !== "/login" && currentPath !== "/signup") { %>
+      <div class="navbar-nav ms-auto search-container">
+        <form class="d-flex" role="search" method="get">
+          <% if(currentCategory){ %>
+          <input type="hidden" name="category" value="<%= currentCategory %>" />
+          <% } %>
+
+          <input
+            class="form-control me-2 search-inp"
+            name="search"
+            type="search"
+            value="<%=searchText%>"
+            placeholder="Search destinations"
+          />
+          <button class=" search-btn" type="submit">
+            <i class="fa-solid fa-magnifying-glass"></i>Search
+          </button>
+        </form>
+      </div>
+
+      <% } %>
 
 
 
-    <div class="tax-toggle">
+
+    <!-- <div class="tax-toggle">
       <div class="form-check-reverse form-switch">
         <input
           class="form-check-input"
@@ -92,7 +114,7 @@
           >Display total after taxes</label
         >
       </div>
-    </div>
+    </div> -->
     
   </div>
 
@@ -104,7 +126,7 @@
   </div>
 
   <% } else { %> 
-  <div class="row row-cols-lg-3 row-cols-md-2 rows-cols-sm-1 mt-3 ps-5 pe-5">
+  <div style="margin-bottom: 5rem;" class="row row-cols-lg-3 row-cols-md-2 rows-cols-sm-1 mt-3  ps-5 pe-5">
     <% for(let listing of allListings ) { %>
     <a href="/listings/<%= listing._id  %>" class="listing-link">
       <div class="index-card card">

@@ -1,5 +1,5 @@
 <link href="/css/navbar.css" rel="stylesheet" />
-<nav class="navbar navbar-expand-md bg-body-light border-bottom sticky-top">
+<nav class="navbar  navbar-expand-md bg-body-light border-bottom sticky-top">
   <div class="container-fluid">
     <!-- <a class="navbar-brand" href="/"><i class="fa-regular fa-compass"></i></a> -->
     <a class="navbar-brand d-flex align-items-center" href="/listings">
@@ -16,33 +16,23 @@
     >
       <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-      <div class="navbar-nav">
-        <a class="nav-link" href="/listings">Explore</a>
-        <a class="nav-link" href="/packages">Package</a>
+    
+
+    <div class="collapse navbar-collapse container" id="navbarNavAltMarkup">
+
+      <div class="link-container ms-auto">
+
+        <div class="navbar-nav">
+          <a class="nav-link" href="/listings">Explore</a>
+          <a class="nav-link" href="/packages">Package</a>
+          <a class="nav-link" href="/about">About Us</a>
+          <a class="nav-link" href="/packages">Contact</a>
+        </div>
       </div>
+        
+    
 
-      <% if (currentPath !== "/login" && currentPath !== "/signup") { %>
-      <div class="navbar-nav ms-auto">
-        <form class="d-flex" role="search" method="get">
-          <% if(currentCategory){ %>
-          <input type="hidden" name="category" value="<%= currentCategory %>" />
-          <% } %>
-
-          <input
-            class="form-control me-2 search-inp"
-            name="search"
-            type="search"
-            value="<%=searchText%>"
-            placeholder="Search destinations"
-          />
-          <button class=" search-btn" type="submit">
-            <i class="fa-solid fa-magnifying-glass"></i>Search
-          </button>
-        </form>
-      </div>
-
-      <% } %>
+     
       <div class="navbar-nav ms-auto">
         <!-- <a class="nav-link" href="/packages/new">Host Your Place</a> -->
            <div class="dropdown">
@@ -83,6 +73,7 @@
         <!-- <a class="nav-link" href="/logout"> <%=currUser.username %></a> -->
         <% }%>
       </div>
-    </div>
+  
+        </div>
   </div>
 </nav>

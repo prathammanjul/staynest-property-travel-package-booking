@@ -1,0 +1,132 @@
+.travel-agent {
+  margin-top: 0%;
+  margin-bottom: 5rem;
+}
+.card {
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+.card-body {
+  padding: 1.5rem !important;
+}
+.travel-package {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(24rem, 1fr));
+  gap: 24px;
+  /* background-color: #0da2e7; */
+  justify-items: center;
+  padding: 3rem 4rem 5rem 4rem;
+}
+
+.card-body p {
+  color: #566e84;
+  font-weight: 400;
+}
+.location {
+  font-size: 14px;
+}
+.card-title {
+  font-size: 20px;
+  color: #344256;
+  font-weight: 600;
+}
+.card-text-d {
+  font-size: 16px !important;
+}
+
+.card-bottom .price {
+  font-weight: bolder;
+  font-size: 18px;
+  color: #0da2e7;
+  padding-top: 5px;
+}
+.card-link {
+  font-weight: bolder;
+  font-size: 14px;
+  color: #0da2e7;
+  text-decoration: none;
+  transition: all 0.3s ease-out;
+  border-radius: 10px;
+  height: 2.7rem;
+
+  padding: 9px 8px 3px 9px;
+}
+.card-link:hover {
+  background-color: #0da2e7;
+  color: white;
+  transform: translateY(-2px);
+}
+
+.days-people {
+  color: #566e84;
+  font: 14px;
+  list-style: none;
+  padding: 0%;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.days-people li i {
+  padding-right: 10px;
+}
+.details {
+  color: #566e84;
+  font: 14px;
+}
+
+.details ul {
+  padding-left: 15px;
+  line-height: 2rem;
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.details ul li::marker {
+  color: #0da2e7;
+  font-size: 18px;
+}
+.package-card {
+  height: 34rem;
+}
+.bottom .price {
+  color: #0da2e7;
+  font-weight: bolder;
+  font-size: 18px;
+}
+
+.card-text-d {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.rating {
+  display: flex;
+  justify-content: space-between;
+}
+
+.rating .category {
+  color: white;
+  background-color: #f97415;
+  font-size: 12px;
+  font-weight: bolder;
+  border-radius: 15px;
+  padding: 8px;
+  line-height: 0.6rem;
+  margin-bottom: 1.5rem;
+}
+.rating .fa-star {
+  color: #f97415;
+}
+.btn .book {
+  width: 100%;
+  padding: 14px;
+}
+.category-mountains {
+  background-color: #0da2e7 !important;
+  color: #fff;
+}
+.category-adventure {
+  background-color: #2ecc71 !important;
+  color: #fff;
+}
