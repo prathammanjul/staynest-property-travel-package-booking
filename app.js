@@ -135,6 +135,13 @@ app.use("/packages", packageRouter);
 app.use("/packages", packageBookingRouter);
 app.use("/packages/:id/reviews", packageReviewRouter);
 
+app.get(
+  "/about",
+  wrapAsync(async (req, res) => {
+    res.render("listings/aboutUs");
+  }),
+);
+
 // ------------------------------------------
 app.use((req, res, next) => {
   next(new ExpressError(404, "Page Not Found !"));
