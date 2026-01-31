@@ -142,6 +142,13 @@ app.get(
   }),
 );
 
+app.get(
+  "/contact",
+  wrapAsync(async (req, res) => {
+    res.render("listings/contactUs");
+  }),
+);
+
 // ------------------------------------------
 app.use((req, res, next) => {
   next(new ExpressError(404, "Page Not Found !"));
