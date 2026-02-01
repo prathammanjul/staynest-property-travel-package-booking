@@ -56,7 +56,8 @@ const packageBookingRouter = require("./routes/packageBooking.js");
 const packageReviewRouter = require("./routes/packageReview.js");
 
 // Connect to database/ create database
-let MONGO_URL = "mongodb://127.0.0.1:27017/stayNest";
+// let MONGO_URL = "mongodb://127.0.0.1:27017/stayNest";
+const dbUrl = process.env.ATLASDB_URL;
 
 main()
   .then(() => {
@@ -67,7 +68,7 @@ main()
   });
 
 async function main() {
-  await mongoose.connect(MONGO_URL);
+  await mongoose.connect(dbUrl);
 }
 
 app.set("view engine", "ejs");

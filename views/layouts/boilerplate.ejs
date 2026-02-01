@@ -32,30 +32,40 @@
     />
     <script src="https://api.mapbox.com/mapbox-gl-js/v3.17.0/mapbox-gl.js"></script>
   </head>
+   <body>
+ 
 
-
-  <main>
     <% if (success && success.length) { %>
-  <div class="toast-wrapper">
-    <div class="toast-success" id="success-toast">
-      <div class="toast-icon">✓</div>
-      <div class="toast-text"><%= success[0] %></div>
-    </div>
-  </div>
-<% } %>
+      <div class="toast-wrapper">
+        <div class="toast-success" id="success-toast">
+          <div class="toast-icon">✓</div>
+          <div class="toast-text"><%= success[0] %></div>
+        </div>
+      </div>
+    <% } %>
 
-    <body>
-      <div id="page-content">
+    <% if (error && error.length) { %>
+      <div class="toast-wrapper">
+        <div class="toast-error" id="error-toast">
+          <div class="toast-icon">!</div>
+          <div class="toast-text"><%= error[0] %></div>
+        </div>
+      </div>
+    <% } %>
+
+ 
+      <main id="page-content">
         <%- include("../include/navbar.ejs") %>
 
         <div class="container-fluid p-0">
-          <!-- <%- include("../include/flash.ejs") %>  -->
+
           <%- body %>
           <!-- This is where page-specific content gets injected -->
         </div>
 
         <%- include("../include/footer.ejs") %>
-      </div>
+     </main>
+
 
       <script src="/js/transition.js"></script>
       <script
@@ -66,19 +76,22 @@
       <script src="/js/script.js"></script>
       <!-- <script src="/js/bookingForm.js"></script> -->
 
-      
       <script>
-  const toast = document.getElementById("success-toast");
-  if (toast) {
-    setTimeout(() => {
-      toast.classList.add("toast-hide");
-    }, 2200);
-  }
-</script>
+        document.querySelectorAll(".toast-success, .toast-error").forEach((toast) => {
+          setTimeout(() => {
+            toast.classList.add("toast-hide");
+
+            // remove from DOM after animation
+            setTimeout(() => {
+              toast.remove();
+            }, 300);
+          }, 2000);
+        });
+    </script>
 
 
-      <script>
-        // Auto close bootstrap alerts after 3 seconds
+      <!-- <script> -->
+        <!-- // Auto close bootstrap alerts after 3 seconds
         // setTimeout(() => {
         //   document.querySelectorAll(".alert-success").forEach((alert) => {
         //     const bsAlert = new bootstrap.Alert(alert);
@@ -98,8 +111,8 @@
         //     const errorAlert = new bootstrap.Alert(alert);
         //     errorAlert.close();
         //   });
-        // }, 5000);
-      </script>
+        // }, 5000); -->
+      <!-- // </script> -->
     </body>
-  </main>
+
 </html>

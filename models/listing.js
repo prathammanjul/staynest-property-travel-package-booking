@@ -56,6 +56,7 @@ const listingSchema = new Schema({
       "Domes",
       "Boats",
     ],
+    trim: true,
   },
 });
 

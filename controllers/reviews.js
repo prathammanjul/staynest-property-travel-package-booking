@@ -20,7 +20,7 @@ module.exports.createReview = async (req, res) => {
   listing.reviews.push(newReview);
 
   await newReview.save();
-  await listing.save();
+  await listing.save({ validateBeforeSave: false });
 
   // console.log("new reviewed saved");
   // res.send("new reviewed saved");

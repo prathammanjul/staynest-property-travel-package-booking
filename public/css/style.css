@@ -1081,3 +1081,27 @@ textarea {
     opacity: 0;
   }
 }
+
+.toast-error {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: #dc2626; /* red-600 */
+  color: white;
+  padding: 12px 20px;
+  border-radius: 999px; /* pill shape */
+  font-size: 15px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+  animation: toastDrop 0.3s ease;
+}
+
+.toast-error .toast-icon {
+  background: rgba(255, 255, 255, 0.25);
+}
+
+@keyframes toastUp {
+  to {
+    transform: translateY(-20px) scale(0.95);
+    opacity: 0;
+  }
+}
