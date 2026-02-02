@@ -23,7 +23,7 @@ module.exports.signUp = async (req, res) => {
     });
   } catch (error) {
     req.flash("error", error.message);
-    res.redirect("/signup");
+    return res.redirect("/signup");
   }
 };
 

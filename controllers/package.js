@@ -69,6 +69,10 @@ module.exports.createNewPackage = async (req, res) => {
 module.exports.renderEditForm = async (req, res) => {
   let { id } = req.params;
   const package = await Package.findById(id);
+  if (!package) {
+    req.flash("error", "Package not found");
+    return res.redirect("/packages");
+  }
 
   res.render("listings/editPackage", { package, isPackageOwner });
 };

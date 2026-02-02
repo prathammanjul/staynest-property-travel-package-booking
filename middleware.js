@@ -103,7 +103,7 @@ module.exports.validateBooking = async (req, res, next) => {
     // const { id } = req.params;
     // const listing = await Listing.findById(id);
     // req.flash("error", "must filled");
-    // res.redirect(`/listings/${id}/booking-page`);
+    res.redirect(`/listings/${id}/booking-page`);
   } else {
     next();
   }

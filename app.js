@@ -14,38 +14,21 @@ const path = require("path");
 //rewuire methodOverride for delete
 const methodOverride = require("method-override");
 const ejsMate = require("ejs-mate");
-
-// FOR ERROR HANDLING {
-
 //require ExpressCustom Error
 const ExpressError = require("./utils/ExpressError.js");
-// }
+
 // require express-session to store cookie/connect-flash in browser
 const session = require("express-session");
-const flash = require("connect-flash");
 
-const {
-  isLoggedIn,
-  validatePackage,
-  validateReview,
-  isPackageOwner,
-  isNotPackageOwner,
-} = require("./middleware.js");
+// session for deployment
+const MongoStore = require("connect-mongo");
+const flash = require("connect-flash");
 const passport = require("passport");
 const LocalStrategy = require("passport-local");
 const User = require("./models/user.js");
 const Package = require("./models/package.js");
 const Booking = require("./models/booking.js");
 
-app.use(express.urlencoded({ extended: true }));
-app.use(express.json());
-const {
-  listingSchema,
-  reviewSchema,
-  bookingSchema,
-  packageSchema,
-  BookingSchema,
-} = require("./schema.js");
 //require routes
 const listingRouter = require("./routes/listing.js");
 const reviewRouter = require("./routes/review.js");
@@ -55,8 +38,6 @@ const packageRouter = require("./routes/package.js");
 const packageBookingRouter = require("./routes/packageBooking.js");
 const packageReviewRouter = require("./routes/packageReview.js");
 
-// Connect to database/ create database
-// let MONGO_URL = "mongodb://127.0.0.1:27017/stayNest";
 const dbUrl = process.env.ATLASDB_URL;
 
 main()
@@ -78,20 +59,33 @@ app.use(methodOverride("_method"));
 app.engine("ejs", ejsMate);
 app.use(express.static(path.join(__dirname, "/public")));
 
-// start your server
-app.listen(8080, "0.0.0.0", () => {
-  console.log("server is listening to port 8080");
+const store = MongoStore.create({
+  mongoUrl: dbUrl,
+  cryptoAdapter: { secret: process.env.SECRET },
+
+  touchAfter: 24 * 3600,
+});
+
+store.on("error", () => {
+  console.log("ERROR IN MONGO SESSION STORE", err);
 });
 
 const sessionOptions = {
-  secret: "mysupersecretcode",
+  store,
+  secret: process.env.SECRET,
   resave: false,
-  saveUninitialized: true,
-  cookies: {
+  saveUninitialized: false,
+  cookie: {
     expires: Date.now() + 7 * 24 * 60 * 60 * 1000,
     maxAge: 7 * 24 * 60 * 60 * 1000,
+    httpOnly: true,
   },
 };
+
+// set up basic API
+// app.get("/", (req, res) => {
+//   res.send("Hii , I am root");
+// });
 
 //use session
 app.use(session(sessionOptions));
@@ -105,6 +99,29 @@ passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
+const {
+  isLoggedIn,
+  validatePackage,
+  validateReview,
+  isPackageOwner,
+  isNotPackageOwner,
+} = require("./middleware.js");
+
+app.use(express.urlencoded({ extended: true }));
+app.use(express.json());
+const {
+  listingSchema,
+  reviewSchema,
+  bookingSchema,
+  packageSchema,
+  BookingSchema,
+} = require("./schema.js");
+
+// start your server
+app.listen(8080, "0.0.0.0", () => {
+  console.log("server is listening to port 8080");
+});
+
 app.use((req, res, next) => {
   res.locals.success = req.flash("success");
   res.locals.error = req.flash("error");
@@ -115,10 +132,6 @@ app.use((req, res, next) => {
   next();
 });
 
-// set up basic API
-// app.get("/", (req, res) => {
-//   res.send("Hii , I am root");
-// });
 // to upload files from form - parse the form data using #Multer.
 const multer = require("multer");
 const { storage } = require("./cloudConfig.js");
@@ -157,6 +170,7 @@ app.use((req, res, next) => {
 
 // middleware for err handling
 app.use((err, req, res, next) => {
+  // if (res.headersSent) return next(err);
   const { statusCode = 400, message = "Something went wrong!" } = err;
   res.status(statusCode).render("error.ejs", { err });
 });

@@ -6,6 +6,11 @@ module.exports.renderBookingForm = async (req, res) => {
   let { id } = req.params;
   const listing = await Listing.findById(id);
 
+  if (!listing) {
+    req.flash("error", "Listing not found");
+    return res.redirect("/listings");
+  }
+
   //send checkin checkout data
   const existingBooking = await Booking.find(
     { listing: id },

@@ -96,6 +96,7 @@ module.exports.renderEditForm = async (req, res) => {
 
   if (!listing) {
     req.flash("error", "Listing you requested for doesn't exits");
+    return res.redirect("/listings");
   }
 
   let originalImageUrl = listing.image.url;
