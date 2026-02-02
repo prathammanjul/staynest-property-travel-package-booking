@@ -1,17 +1,17 @@
 <% layout("layouts/boilerplate") %>
 <link href="/css/showPage.css" rel="stylesheet" />
 
+
+
 <script>
   const mapToken = "<%= process.env.MAP_TOKEN %>";
   const coordinates = <%- JSON.stringify(listing.geometry.coordinates) %>;
 </script>
 
 
-<style>
-  
-</style>
 
-<div class="">
+
+
   <section class="poster">
     <div
     class="head"
@@ -49,9 +49,9 @@
   <div class="main-content">
     <div class="left-side">
       <p>
-        <h4 class="show-heading"> Stay in <%= `${listing.location + "," + listing.country}` %> </h4>
+        <h4 class="show-heading mb-0"> Stay in <%= `${listing.location + "," + listing.country}` %> </h4>
 
-        <h5 class=" mb-4 info-text">
+        <h5 class=" mb-5 info-text">
           Nested by: <%= listing.owner.username %>
         </h5>
 

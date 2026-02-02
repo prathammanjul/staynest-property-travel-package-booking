@@ -107,10 +107,17 @@ footer {
 
 /* CARDS */
 
+.card img {
+  border: 0.1px solid black;
+  border-radius: 2rem;
+
+  /* margin-bottom: 10rem; */
+}
 .card {
   border: none !important;
   margin-bottom: 2rem;
   transition: 0.3s ease-out;
+
   /* box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1); */
   overflow: hidden;
 }
@@ -409,12 +416,12 @@ footer {
   color: white;
 }
 
-.main-content {
+/* .main-content {
   display: flex;
   justify-content: space-between;
   padding: 4rem 7rem 0rem 3rem;
   gap: 10rem;
-}
+} */
 .mid {
   display: flex;
   gap: 2rem;
