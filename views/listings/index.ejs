@@ -1,6 +1,9 @@
 <% layout("/layouts/boilerplate") %>
 
 
+
+
+
 <div id="filters"  class="ps-5 pe-5">
 
   <!-- <div class="filter">
@@ -126,7 +129,7 @@
   </div>
 
   <% } else { %> 
-  <div style="margin-bottom: 5rem;" class="listing row row-cols-lg-4 row-cols-md-4 rows-cols-sm-1 mt-3  ps-5 pe-5">
+  <div style="margin-bottom: 5rem; margin-top: 2.5rem !important;" class="listing-container row row-cols-lg-4 row-cols-md-4 rows-cols-sm-1 mt-3  ps-5 pe-5">
     <% for(let listing of allListings ) { %>
     <a href="/listings/<%= listing._id  %>" class="listing-link">
       <div class="index-card card">
