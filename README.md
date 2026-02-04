@@ -73,7 +73,7 @@ Device Compatibility:
 
 ### Listing Details Page
 
-![Listing Details](screenshots/ListingDetails.jpg)
+![Listing Details](screenshots/listingDetails.jpg)
 ![Listing Details](screenshots/L3.jpg)
 ![Listing Details](screenshots/L4.jpg)
 ![Listing Details](screenshots/L5.jpg)
